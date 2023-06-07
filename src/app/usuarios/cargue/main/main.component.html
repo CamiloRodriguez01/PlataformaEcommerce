@@ -1,0 +1,63 @@
+<div class="container-general mt-4">
+
+  <div class="container">
+    <h5 class="text-center fw-bolder">Registrar nuevo producto</h5>
+    <hr>
+
+    <div class="row">
+      <form class="mt-2">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">account_circle</span></span>
+            <input type="text" class="form-control" placeholder="nombre producto" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">payment</span></span>
+            <input type="text" class="form-control" placeholder="tipo producto" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">mail</span></span>
+            <select class="form-select" id="specificSizeSelect">
+              <option selected>Tipo</option>
+              <option value="1">Plantilla</option>
+              <option value="2">Curso</option>
+              <option value="3">Plataforma</option>
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">details</span></span>
+            <textarea type="text" class="form-control" placeholder="descripción" aria-label="Username" aria-describedby="basic-addon1"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">save</span></span>
+            <input type="file" class="form-control" placeholder="imagen" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+
+          <fieldset class="row mb-3">
+            <legend class="col-form-label col-sm-2 pt-0">Descuento</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                <label class="form-check-label" for="gridRadios1">
+                  Si Aplica
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                <label class="form-check-label" for="gridRadios2">
+                  No Aplica
+                </label>
+              </div>
+              </div>
+          </fieldset>
+
+          <button class="btn btn-success">Cargar</button>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,46 @@
+.container-general{
+  display: grid;
+  place-content: center;
+  /* background-color: hsl(0, 0%, 96%); */
+  height: 100vh;
+  background: rgb(120,195,180);
+  background: linear-gradient(90deg, rgba(120,195,180,1) 18%, rgba(166,227,204,1) 61%, rgba(210,250,234,1) 100%);
+}
+#container-titulos{
+  padding: 40px;
+
+}
+#texto-normal{
+  color: black;
+  font-size: 17px;
+
+}
+#texto-titulo{
+  color: white;
+  font-size: 50px;
+}
+#texto-titulo span{
+  font-size: 40px;
+}
+#container-login{
+  box-shadow: 2px -2px 26px -3px rgba(0,0,0,0.75);
+}
+#container-button{
+  display: grid;
+  place-content: center;
+}
+#container-button button{
+
+  box-shadow: 2px -2px 10px -3px rgba(0,0,0,0.75);
+}
+#icono{
+  font-size: 25px;
+  color: white;
+}
+#texto-registro{
+  font-size: 13px;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  font-style: italic;
+  cursor: pointer;
+}

@@ -1,0 +1,24 @@
+#container-general{
+  height: 100vh;
+}
+.card-title{
+  font-weight: bolder;
+  text-align: center;
+}
+.card-text-precio{
+  text-align: center;
+  margin-top: -10px;
+  color: red;
+  font-weight: bolder;
+}
+#contenedor-texto{
+  margin: 0px;
+}
+#contenedor-precios{
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+}
+#contenedor-precios span{
+  vertical-align: middle;
+}

@@ -1,0 +1,14 @@
+h6{
+  font-weight: bolder;
+  font-style: italic;
+}
+#filtro-precios input{
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+#filtro-ciudad option, #filtro-ciudad select, #filtro-envio label, #filtro-precios h5, #filtro-tipo label{
+  font-size: 14px;
+}
+#filtro-nombre input{
+  font-size: 13px;
+}

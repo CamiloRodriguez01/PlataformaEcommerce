@@ -1,0 +1,20 @@
+.container-general{
+  height: 100vh;
+}
+#container-informacion{
+  display: grid;
+  place-content: end;
+}
+#contenedor-precios{
+  display: flex;
+  flex-wrap: wrap;
+  place-content: center;
+}
+#contenedor-precios span{
+  vertical-align: middle;
+}
+.card-body{
+  display: grid;
+  place-content: center;
+  text-align: center;
+}

@@ -1,0 +1,6 @@
+#container-general{
+  height: 100vh;
+}
+input, textarea, button{
+  font-size: 13px;
+}
