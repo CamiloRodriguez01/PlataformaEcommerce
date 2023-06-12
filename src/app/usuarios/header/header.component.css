@@ -70,12 +70,12 @@
 #notificaciones{
   background-color: transparent; border: none;
 }
-@media (max-width: 600px) {
-  #buscador{
-      display: none;
-  }
+@media (max-width: 500px) {
   .navBar #contenerBrand label{
       display: none;
+  }
+  .navbar-brand{
+    display: none;
   }
 
 }

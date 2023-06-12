@@ -2,7 +2,7 @@
   display: grid;
   place-content: center;
   /* background-color: hsl(0, 0%, 96%); */
-  height: 100vh;
+  height: 100%;
   background: rgb(120,195,180);
   background: linear-gradient(90deg, rgba(120,195,180,1) 18%, rgba(166,227,204,1) 61%, rgba(210,250,234,1) 100%);
 }
