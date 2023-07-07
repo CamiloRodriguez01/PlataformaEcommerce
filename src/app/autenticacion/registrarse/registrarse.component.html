@@ -1,38 +1,56 @@
-<section class="container-general">
+<section class="container-general align-items-center">
   <div class="px-4 py-5 px-md-5 text-center text-lg-start" id="fondo">
     <div class="container">
-      <div class="row gx-lg-5 align-items-center">
-        <div id="container-ingreso" class="col-lg-6 mb-5 mb-lg-0">
+      <div class="row align-items-center">
+        <div id="container-titulos" class="col-lg-6">
           <div id="container-login" class="card">
-            <div class="card-body py-5 px-md-5">
-              <form>
-                <h6 class="text-center mb-3 fw-bolder">Registrarse</h6>
+            <div class="card-body">
+              <form  [formGroup]="form">
+                <h6 class="text-center fw-bolder">Registrarse</h6>
+                <div class="form-outline mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><span class="material-symbols-outlined">account_circle</span></span>
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="nombre usuario" formControlName="username">
+                  </div>
+                </div>
                 <div class="form-outline mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">person</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="nombres">
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="nombre" formControlName="last_name">
+                  </div>
+                </div>
+                <div class="form-outline mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><span class="material-symbols-outlined">badge</span></span>
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="apellido" formControlName="first_name">
                   </div>
                 </div>
                 <div class="form-outline mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">location_city</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="ciudad">
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="direccion" formControlName="address">
                   </div>
                 </div>
                 <div class="form-outline mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">mail</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="correo electronico">
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="correo electronico" formControlName="email">
                   </div>
                 </div>
                 <div class="form-outline mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">lock</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="asignar contraseña">
+                    <input type="password" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="asignar contraseña" formControlName="password"> 
+                  </div>
+                </div>
+                <div class="form-outline mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><span class="material-symbols-outlined">lock</span></span>
+                    <input type="password" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="confirmar contraseña" formControlName="password2">
                   </div>
                 </div>
                 <div id="container-button">
-                  <button type="submit" class="btn btn-success btn-block mb-2">Registrarse</button>
+                  <button type="submit" class="btn btn-primary success btn-block mb-2" (click)="adicionarInformacion()">Registrarse</button>
                 </div>
                 <div>
                   <p routerLink="" id="texto-registro" class="text-center">Iniciar Sesión</p>
@@ -41,21 +59,23 @@
             </div>
           </div>
         </div>
-        <div id="container-titulos" class="col-lg-6 mb-3 mb-lg-0">
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
-          <span id="icono" class="material-symbols-outlined">sports_score</span>
+        <div id="container-ingreso" class="col-lg-6">
+          <div id="banderas">
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+          </div>
           <h1 id="texto-titulo" class="my-1 display-3 fw-bold ls-tight">
             El mejor comercio <br />
-            <span class="text-primary text-black"> de software.</span>
+            <span class="text-primary"> de software.</span>
           </h1>
           <p id="texto-normal">
             Registrate y podras encontrar todos los productos que necesites, y a su vez cargar tus propios propductos.

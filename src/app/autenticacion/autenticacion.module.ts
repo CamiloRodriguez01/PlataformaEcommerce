@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AutenticacionRoutingModule } from './autenticacion-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegistrarseComponent } from './registrarse/registrarse.component';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,9 @@ import { RegistrarseComponent } from './registrarse/registrarse.component';
   ],
   imports: [
     CommonModule,
-    AutenticacionRoutingModule
+    AutenticacionRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AutenticacionModule { }

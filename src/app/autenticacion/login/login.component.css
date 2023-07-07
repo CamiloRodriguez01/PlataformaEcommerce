@@ -1,17 +1,16 @@
+
 .container-general{
-  display: grid;
+  display: flex;
   place-content: center;
-  /* background-color: hsl(0, 0%, 96%); */
-  height: 100%;
-  background: rgb(120,195,180);
-  background: linear-gradient(90deg, rgba(120,195,180,1) 18%, rgba(166,227,204,1) 61%, rgba(210,250,234,1) 100%);
+  background: #001C30;
+  background: linear-gradient(90deg, #001C30 18%, #254b66 61%, #354550 100%);
 }
 #container-titulos{
   padding: 40px;
 
 }
 #texto-normal{
-  color: black;
+  color: white;
   font-size: 17px;
 
 }
@@ -21,6 +20,7 @@
 }
 #texto-titulo span{
   font-size: 40px;
+
 }
 #container-login{
   box-shadow: 2px -2px 26px -3px rgba(0,0,0,0.75);
@@ -30,7 +30,7 @@
   place-content: center;
 }
 #container-button button{
-
+  font-size: 13px;
   box-shadow: 2px -2px 10px -3px rgba(0,0,0,0.75);
 }
 #icono{
@@ -39,8 +39,24 @@
 }
 #texto-registro{
   font-size: 13px;
-  color: rgb(0, 0, 0);
   font-weight: bolder;
-  font-style: italic;
   cursor: pointer;
+}
+#container-reg{
+  display: flex;
+  justify-content: center;
+}
+#container-reg h6{
+  color: rgb(116, 116, 116);
+  font-size: 11px;
+  margin-top: 5px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+input{
+  font-size: 13px;
+}
+#texto-general-titulo{
+  font-size: 12px;
+  font-weight: bolder;
 }

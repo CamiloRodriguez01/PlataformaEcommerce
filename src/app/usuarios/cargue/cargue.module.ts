@@ -5,10 +5,11 @@ import { CargueRoutingModule } from './cargue-routing.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
-    CargueRoutingModule
+    CargueRoutingModule,
   ]
 })
 export class CargueModule { }

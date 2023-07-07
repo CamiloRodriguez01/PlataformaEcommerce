@@ -3,4 +3,5 @@
 }
 input, textarea, button{
   font-size: 13px;
+  width: 100%;
 }

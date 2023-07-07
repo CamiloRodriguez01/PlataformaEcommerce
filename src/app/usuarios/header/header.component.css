@@ -6,7 +6,7 @@
 
 .navBar{
   height: 50px;
-  background: linear-gradient(90deg, rgb(102, 231, 156) 16%, rgb(77, 233, 168) 93%);
+  background: #001C30;
   box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.58);
 }
 
@@ -18,27 +18,27 @@
   font-size: 13px;
   font-weight: bolder;
   text-transform: capitalize;
-  color: black;
-  border-right: 1px solid rgb(125, 175, 96);
+  color: white;
+  border-right: 1px solid rgb(173, 173, 173);
   padding-right: 10px;
   margin-right: 5px;
 }
 
 #mis-compras{
-  border-right: 1px solid rgb(125, 175, 96);
+  border-right: 1px solid rgb(173, 173, 173);
   padding-right: 10px;
   margin-right: 25px;
 }
 .navBar #contenerBrand span{
   font-size: 25px;
   margin-top: 4px;
-  color: black;
+  color: white;
   vertical-align: bottom;
   cursor: pointer;
 }
 .navBar #contenerBrand label{
   font-size: 13px;
-  color: black;
+  color: white;
   cursor: pointer;
 }
 .elementNav{
@@ -51,7 +51,7 @@
 }
 #opciones #itemNavbar{
   font-size: 22px;
-  color: black;
+  color: white;
   cursor: pointer;
   margin-top: 5px;
 }

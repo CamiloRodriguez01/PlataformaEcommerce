@@ -1,8 +1,8 @@
-<section class="container-general">
-  <div class="px-4 py-5 px-md-5 text-center text-lg-start" id="fondo">
+<section class="container-general d-flex align-items-center vh-100">
+  <div class="text-center text-lg-start" id="fondo">
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
-        <div id="container-titulos" class="col-lg-6 mb-3 mb-lg-0">
+        <div id="container-titulos" class="col-lg-6 mb-lg-0">
           <span id="icono" class="material-symbols-outlined">star</span>
           <span id="icono" class="material-symbols-outlined">star</span>
           <span id="icono" class="material-symbols-outlined">star</span>
@@ -15,34 +15,37 @@
           <span id="icono" class="material-symbols-outlined">star</span>
           <h1 id="texto-titulo" class="my-1 display-3 fw-bold ls-tight">
             El mejor comercio <br />
-            <span class="text-primary text-black"> de software.</span>
+            <span class="text-primary"> de software.</span>
           </h1>
           <p id="texto-normal">
             Encuentra todolo que buscas a travez de nuestra plataforma de mercado en linea. Como plantillas, tutorias, y demas.
           </p>
         </div>
-        <div id="container-ingreso" class="col-lg-6 mb-5 mb-lg-0">
+        <div id="container-ingreso" class="col-lg-6">
           <div id="container-login" class="card">
-            <div class="card-body py-5 px-md-5">
-              <form>
+            <div class="card-body">
+              <form [formGroup]="form">
                 <h6 class="text-center mb-3 fw-bolder">Iniciar Sesión</h6>
                 <div class="form-outline mb-3">
+                  <h6 id="texto-general-titulo">Nombre de usuario</h6>
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">mail</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="correo electronico">
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="Usuario" formControlName="username">
                   </div>
                 </div>
                 <div class="form-outline mb-3">
+                  <h6 id="texto-general-titulo">Contraseña</h6>
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">lock</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="contraseña">
+                    <input type="password" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="contraseña" formControlName="password">
                   </div>
                 </div>
                 <div id="container-button">
-                  <button routerLink="usuarios" type="submit" class="btn btn-success btn-block mb-2">Ingresar</button>
+                  <button type="button" class="btn btn-primary btn-block mb-2" (click)="verificarUsuario()">Ingresar</button>
                 </div>
-                <div>
-                  <p routerLink="registrarse" id="texto-registro" class="text-center">registrarse</p>
+                <div id="container-reg">
+                  <h6 class="me-1">¿No tienes cuenta?</h6>
+                  <p routerLink="registrarse" id="texto-registro" class="text-center text-dark">Registrarse</p>
                 </div>
               </form>
             </div>

@@ -1,9 +1,6 @@
-.container-general{
-  height: 100vh;
-}
-#container-informacion{
-  display: grid;
-  place-content: end;
+.container-gp{
+  height: 100%;
+  min-height: 100vh;
 }
 #contenedor-precios{
   display: flex;
@@ -17,4 +14,108 @@
   display: grid;
   place-content: center;
   text-align: center;
+}
+.imagen img{
+  max-width: 300px;
+  width: 100%;
+  max-height: 160px;
+  min-height: 160px;
+}
+.card-title{
+  margin-top: -10px;
+  font-weight: bolder;
+}
+#description{
+  max-height: 50px;
+  min-height: 50px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.card-category{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#filtro-precios h5, #filtro-precios h6 {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.input-busqueda{
+  width: 100%;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.form-check-label{
+  font-size: 12px;
+}
+.pagination-principal{
+  display: grid;
+  place-content: end;
+}
+
+.pagination-principal ul li a{
+  font-size: 12px;
+}
+#texto-no{
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+#img-no{
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+.modal-body img{
+  max-width: 300px;
+  width: 100%;
+  max-height: 160px;
+  min-height: 160px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+}
+
+
+#container-imagenes{
+  display: flex;
+  flex-wrap: wrap;
+  place-content: center;
+}
+
+
+.modal-title{
+  font-size: 13px;
+}
+.modal-header{
+  background-color: #eeeeff73;
+}
+.modal-body input, .modal-body textarea{
+  font-size: 12px;
+}
+.modal-footer button{
+  font-size: 12px;
+}
+
+.container-button{
+  display: flex;
+  flex-wrap: nowrap;
+  place-content: center;
+}
+
+.container-button button{
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  height: 25px;
+  font-size: 12px;
+}
+.card-title-modal{
+  font-size: 14px;
+  font-weight: bold;
 }

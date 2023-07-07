@@ -1,26 +1,29 @@
 <div class="container" id="container-general">
   <h5 class="text-center fw-bolder mt-4">Datos de Perfil</h5>
   <hr>
-  <form class="row">
-    <div class="col-md-6">
-      <div class="input-group mb-3">
+  <form class="row" [formGroup]="form">
+    <div class="col-md-12">
+      <div class="input-group mb-2">
         <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">account_circle</span></span>
-        <input type="text" class="form-control" placeholder="nombre" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1" formControlName="usarname">
       </div>
-      <div class="input-group mb-3">
+      <div class="input-group mb-2">
         <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">person</span></span>
-        <input type="text" class="form-control" placeholder="apellido" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="Primer Nombre" aria-label="Username" aria-describedby="basic-addon1" formControlName="first_name">
       </div>
-      <div class="input-group mb-3">
+      <div class="input-group mb-2">
+        <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">account_circle</span></span>
+        <input type="text" class="form-control" placeholder="Segundo Nombre" aria-label="Username" aria-describedby="basic-addon1" formControlName="last_name">
+      </div>
+      <div class="input-group mb-2">
         <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">mail</span></span>
-        <input type="text" class="form-control" placeholder="correo" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="Correo" aria-label="Username" aria-describedby="basic-addon1" formControlName="email">
       </div>
-      <div class="input-group mb-3">
+      <div class="input-group mb-2">
         <span class="input-group-text" id="basic-addon1"><span class="material-symbols-outlined">location_city</span></span>
-        <input type="text" class="form-control" placeholder="direccion" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="Direccion" aria-label="Username" aria-describedby="basic-addon1" formControlName="address">
       </div>
-
-      <button class="btn btn-success">Actualizar</button>
+      <!-- <button class="btn btn-success">Actualizar</button> -->
 
     </div>
   </form>

@@ -3,15 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
+import { TablaComponent } from '../tabla/tabla.component';
+import { AdicionarComponent } from '../adicionar/adicionar.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    TablaComponent,
+    AdicionarComponent
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
+    
   ]
 })
 export class MainModule { }

@@ -5,17 +5,20 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
 import { ListaComponent } from '../lista/lista.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     MainComponent,
     FiltrosComponent,
-    ListaComponent
+    ListaComponent,
+    
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    FormsModule
   ]
 })
 export class MainModule { }
