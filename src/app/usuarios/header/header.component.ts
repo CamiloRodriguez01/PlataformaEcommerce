@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Toast , ToastConfirmacion , ToastAutentication} from 'src/app/helpers/useAlerts';
 import { Router } from '@angular/router';
+import { ApiService } from '../../api-service/api.service';
+import { Usuario } from '../perfil/UsuarioI';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +13,17 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router) { 
+  permiso: Boolean = false;
+  form! : FormGroup; 
 
+
+  constructor(private router: Router, private apiService: ApiService) { 
   }
+
+  ngOnInit(): void {
+    this.obtenerUsuario();
+  }
+
 
   cerrarSesion(){
     ToastConfirmacion.fire({
@@ -22,9 +34,24 @@ export class HeaderComponent {
           this.router.navigateByUrl('/');
         }
     });
-
   }
 
+  obtenerUsuario(): void {
+    this.apiService.obtenerInformacion('/user/').subscribe(
+      {
+        next: (datos: any) => {
+          datos.groups.forEach((element: any) => {
+            if(element.name == 'administrator'){
+              this.permiso = true;
+            }
+          })
+        },
+        complete: () => {
+
+        }
+      }
+    );
+  }
 
 
 }

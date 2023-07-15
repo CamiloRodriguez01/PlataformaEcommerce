@@ -33,17 +33,15 @@
   vertical-align: middle;
 }
 .card-body{
-  min-height: 150px;
-  overflow-y: auto;
   display: grid;
   place-content: center;
   text-align: center;
 }
 .imagen img{
-  min-width: 100px;
-  width: 100%;
-  max-height: 160px;
-  min-height: 160px;
+  min-width: 300px;
+  min-width: 100%;
+  max-height: 200px;
+  min-height: 200px;
 }
 .card-title{
   margin-top: 0px;
@@ -53,7 +51,6 @@
 #precio-card{
   font-size: 14px;
   font-weight: bold;
-  color: #ff0000;
 }
 
 #description{
@@ -99,13 +96,13 @@
 }
 #img-no{
   width: 100%;
-  min-width: 300px;
+  max-width: 300px;
   margin: 0 auto;
   display: block;
 }
 
 .modal-body img{
-  min-width: 300px;
+  max-width: 300px;
   width: 100%;
   max-height: 160px;
   min-height: 160px;
@@ -186,4 +183,13 @@ table tbody tr{
 
 #container-button-c h6{
   font-size: 13px;
+}
+#titulo-nombres{
+  font-size: 13px;
+  font-weight: bold;
+}
+#valor-nombres{
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
 }

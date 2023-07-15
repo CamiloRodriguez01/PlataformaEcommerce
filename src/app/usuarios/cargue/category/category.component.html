@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="titulo mt-4 d-flex justify-content-between align-items-center">
+    <div>
+      <h6 class="fw-bold ms-3">Categorias Registrados</h6>
+    </div>
+    <div id="container-btn-adicionar">
+      <h6 class="me-3 btn btn-success" data-bs-toggle="modal" data-bs-target="#adicionarModalC" translate="no">Adicionar<span id="edit" class="material-symbols-outlined text-light ">add</span></h6>
+    </div>
+  </div>
+  <main class="container">
+    <div class="card mt-1">
+      <div class="table-responsive-sm">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Opcion</th>
+              <th scope="col">Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productos">
+              <th scope="row">{{ producto.id }}</th>
+              <td class="elementos" >
+                <span id="edit" class="material-symbols-outlined text-success me-2" data-bs-toggle="modal" data-bs-target="#editModalC" translate="no" (click)="obtenerProductoElegido(producto.id)">edit</span>
+                <span id="delete" class="material-symbols-outlined text-danger me-2" translate="no" (click)="borrarInformacion(producto.id)" >delete</span>
+              </td>
+              <td>{{ producto.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <div class="pagination-principal me-3">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="#" (click)="changePage($event, currentPage - 1)">Anterior</a>
+      </li>
+      <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="currentPage === page">
+        <a class="page-link" href="#" (click)="changePage($event, page)">{{ page }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" href="#" (click)="changePage($event, currentPage + 1)">Siguiente</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editModalC" tabindex="-1" aria-labelledby="editModalCCLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalCCLabel">Editar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="modal-body" [formGroup]="form">
+        <div class="col-sm-12">
+          <label class="visually-hidden">Nombre</label>
+          <div class="input-group">
+            <div class="input-group-text"><span class="material-symbols-outlined" translate="no">person</span></div>
+            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #cerrarModalButton id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="actualizarInformacion(2)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="adicionarModalC" tabindex="-1" aria-labelledby="adicionarModalCCLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adicionarModalCCLabel">Editar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="modal-body" [formGroup]="formAdicionar">
+        <div class="col-sm-12">
+          <label class="visually-hidden">Nombre</label>
+          <div class="input-group">
+            <div class="input-group-text"><span class="material-symbols-outlined" translate="no">person</span></div>
+            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #cerrarModalButtonAd id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="adicionarInformacion()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

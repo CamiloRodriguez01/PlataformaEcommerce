@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AutenticacionModule } from './autenticacion/autenticacion.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { BeforeEnterGuardGuard } from '../app/before-enter-guard.guard';
 
 const routes: Routes = [
   {
@@ -10,8 +11,8 @@ const routes: Routes = [
   },
   {
     path:'usuarios',
-    loadChildren:()=>import('./usuarios/usuarios.module').then(m=>UsuariosModule)
-    //TODO: Colocar un beforeEntrie. Para que verifique que tenga acceso.
+    loadChildren:()=>import('./usuarios/usuarios.module').then(m=>UsuariosModule),
+    canActivate: [BeforeEnterGuardGuard] 
   }
 ];
 

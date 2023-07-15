@@ -4,6 +4,8 @@ import { Producto } from '../../productos/ProductoI';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Toast , ToastConfirmacion , ToastAutentication} from 'src/app/helpers/useAlerts';
+import { Descuento } from '../../inicio/DescuentoI';
+import { Category } from '../../productos/Category';
 
 @Component({
   selector: 'app-tabla',
@@ -17,16 +19,32 @@ export class TablaComponent {
   productos: Producto[] = [];
   form! : FormGroup; 
   formAdicionar! : FormGroup; 
+  formDiscont! : FormGroup; 
   formFile! : FormGroup; 
   idActual!:number;
   idImagen!:number;
   fileToUpload: File[] = [];
+  descuento:Descuento[] = [];
+  categoria:Category[] = [];
+
   @ViewChild('cerrarModalButton') cerrarModalButton!: ElementRef;
   @ViewChild('cerrarModalButtonAd') cerrarModalButtonAd!: ElementRef;
   @ViewChild('cerrarModalButtonImg') cerrarModalButtonImg!: ElementRef;
+  @ViewChild('cerrarModalButtonDis') cerrarModalButtonDis!: ElementRef;
 
   constructor(private apiService: ApiService , private formBuilder: FormBuilder) {
     this.buildForm();
+    this.obtenerCategorias();
+  }
+
+  obtenerCategorias(): void {
+    this.apiService.obtenerInformacion('/product/category/').subscribe(
+      {
+        next: (datos: any) => {
+          this.categoria = datos.results;
+        }
+      }
+    );
   }
 
   private buildForm(){
@@ -50,10 +68,18 @@ export class TablaComponent {
       image: [''  , false],
       product: [this.idImagen, false],
     });
+
+    this.formDiscont = this.formBuilder.group({
+      percentage: [''  , [Validators.required, Validators.pattern(textRgx)]],
+      valid: ['', [Validators.required, Validators.pattern(textRgx)]],
+      inStock: [0, [Validators.required, Validators.pattern(numbergx)]],
+      product: [ '', [Validators.required, Validators.pattern(/^\d+$/)]],
+    });
   }
 
   ngOnInit(): void {
     this.obtenerProductos();
+    this.obtenerDescuentos();
   }
 
   obtenerProductos(): void {
@@ -62,6 +88,16 @@ export class TablaComponent {
         next: (datos: any) => {
           this.productos = datos.results;
           this.cantidadElementos = datos.count;
+        }
+      }
+    );
+  }
+
+  obtenerDescuentos(): void {
+    this.apiService.obtenerInformacion('/product/discount/').subscribe(
+      {
+        next: (datos: any) => {
+          this.descuento = datos.results;
         }
       }
     );
@@ -116,7 +152,8 @@ export class TablaComponent {
           this.obtenerProductos();
           this.cerrarModalButtonAd.nativeElement.click();
           Toast.fire({icon: 'success',title: 'Producto adicionado con exito'})
-
+        },
+        complete: () => {
         }
       }
     );
@@ -127,6 +164,7 @@ export class TablaComponent {
   }
 
   uploadFile() {
+    console.log("adsadsas");
     for (let i = 0; i < this.fileToUpload.length; i++) {
       const formData = new FormData();
       formData.append('image', this.fileToUpload[i]);
@@ -168,5 +206,88 @@ export class TablaComponent {
       }
 
     });
+  }
+
+  adicionarDescuento(): void {
+      this.formDiscont.value.product = this.idImagen;
+      this.apiService.adicionarInformacion('/product/discount/', this.formDiscont.value).subscribe({
+        next: (datos: any) => {
+          this.obtenerProductos();
+          this.obtenerDescuentos();
+        },
+        complete: () => {
+            this.cerrarModalButtonDis.nativeElement.click();
+            Toast.fire({icon: 'success',title: 'Producto adicionado correctamente a descuentos'})
+        }
+      });
+
+  }
+
+  obtenerDescuento(id: number): string {
+    const descuentoEncontrar = this.descuento.find(e => e.product === id);
+    let variable = descuentoEncontrar?.percentage ? descuentoEncontrar.percentage.toString() : '0';
+    return variable;
+  }
+
+  obtenerIdDescuento(id: number): number {
+    const descuentoEncontrar = this.descuento.find(e => e.product === id);
+    let variable = descuentoEncontrar?.id ? descuentoEncontrar.id : 0;
+    return variable;
+  }
+
+  borrarDescuento(id: number): void {
+    ToastConfirmacion.fire({
+      html: '¿Estas seguro de borrar el descuento?:',
+    }).then(async(result) => {
+        if (result.isConfirmed) {    
+        this.apiService.borrarInformacion('/product/discount/' + id +'/').subscribe(
+          {
+            next: (datos: any) => {
+              console.log(datos);
+            },
+            complete: () => {
+              this.obtenerProductos();
+              this.obtenerDescuentos();
+              Toast.fire({icon: 'success',title: 'Descuento Eliminado con exito'})
+            },
+            error: (error: any) => {
+              Toast.fire({icon: 'error',title: 'Ocurrio un problema al borrar el producto'})
+            }
+          }
+        );
+      }
+
+    });
+  }
+
+  borrarImagen(id: number): void {
+    ToastConfirmacion.fire({
+      html: '¿Estas seguro de borrar la imagen?:',
+    }).then(async(result) => {
+        if (result.isConfirmed) {    
+        this.apiService.borrarInformacion('/product/images/' + id +'/').subscribe(
+          {
+            next: (datos: any) => {
+            },
+            complete: () => {
+              this.obtenerProductos();
+              this.obtenerDescuentos();
+              Toast.fire({icon: 'success',title: 'Imagen eliminada con exito'})
+            },
+            error: (error: any) => {
+              console.log(error);
+              Toast.fire({icon: 'error',title: 'Ocurrio un problema al borrar la imagen'})
+            }
+          }
+        );
+      }
+    });
+  }
+
+  obttenerNombreCategoria(id: number): string {
+    const categoriaNombre = this.categoria.find(e => e.id === id);
+    let variable = categoriaNombre?.name ? categoriaNombre.name : '';
+    return variable;
+
   }
 }

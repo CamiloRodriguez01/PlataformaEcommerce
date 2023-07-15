@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  URL_BASE = "http://ec2-100-26-117-71.compute-1.amazonaws.com/api";
+  URL_BASE = "https://api.eccomerce.brzapps.me";
   TOKEN = ''
 
   private headers = new HttpHeaders()
@@ -82,7 +82,6 @@ export class ApiService {
   }
 
   public adicionarInformacionJ(endPoint: string, datos: any): Observable<any> {
-    console.log(datos);
     const body = JSON.stringify(datos);
     return this.http.post(this.URL_BASE + endPoint, body, this.optionsJson);
   }

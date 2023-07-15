@@ -1,12 +1,12 @@
 <div class="container-general mt-4">
-  <h5 class="text-center fw-bolder">Carrito de Compra</h5>
-  <h6 class="text-start">A continuaciòn se muestran los productos agregados en el carrito de compra.</h6>
+  <h5 class="text-center fw-bolder">Productos en Descuento</h5>
+  <h6 class="text-start">A continuaciòn se muestran los productos que se encuentran en descuento.</h6>
   <hr>
   <div class="container">
     <div class="row">
       <div class="container" *ngIf="productos.length > 0">
         <div class="row">
-          <div class="col-lg-3" *ngFor="let producto of carrito">
+          <div class="col-md-3" *ngFor="let producto of carrito">
             <div class="card mb-3">
               <div class="row g-0">
                 <div class="imagen">
@@ -14,12 +14,14 @@
                   <img *ngIf="!producto.images[0]" src="https://filestore.community.support.microsoft.com/api/images/ext?url=https%3A%2F%2Fanswerscdn.microsoft.com%2Fstatic%2Fimages%2Fimage-not-found.jpg" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ producto.name}} <h5 class="card-title text-danger" *ngIf="obtenerDescuentoPorcentaje(producto.id) != 0"> Descuento: {{obtenerDescuentoPorcentaje(producto.id)}}%</h5></h5>
+                    <h5 class="card-title">{{ producto.name}}</h5>
+                    <h6 id="titulo-nombres">Descuento de : <small id="valor-nombres"> {{obtenerDatoDescuento(producto.id) }} % </small></h6>
+                    <h6 id="titulo-nombres">Descuento hasta : <small id="valor-nombres">{{obtenerDatoFecha(producto.id) | date}}  </small></h6>
+                    <h6 id="titulo-nombres">Valor con descuento : <small id="valor-nombres">{{obtenerValordescuento(producto.id) | number}} </small> </h6>
                     <div id="contenedor-precios">
-                      <h5 *ngIf="obtenerDescuento(producto.id) == 0" class="card-text" id="precio-card">Precio : <small class="text-muted fw-bolder">{{producto.price | currency: 'USD': 'symbol' }}</small></h5>
-                      <h5 *ngIf="obtenerDescuento(producto.id) != 0" class="card-text" id="precio-card">Precio Descuento : <small class="text-muted fw-bolder">{{obtenerDescuento(producto.id) | currency: 'USD': 'symbol' }}</small></h5>
+                      <h5 class="card-text" id="precio-card">Valor Normal : <small class="text-muted fw-bolder">{{(producto.price) | currency: 'USD': 'symbol' }}</small></h5>
                       <h5 id="boton-info" data-bs-toggle="modal" data-bs-target="#informacionModal" class="btn btn-info ms-2" (click)="obtenerProductoElegido(producto.id)"><small class="text-muted fw-bolder"><span id="icono-inf" class="material-symbols-outlined" >info</span></small></h5>
-                      <h5 id="boton-info" class="btn btn-danger ms-2" (click)="borrarInformacion(producto.idsCarrito)"><small class="text-muted fw-bolder"><span id="icono-inf" class="material-symbols-outlined"  >cancel</span></small></h5>
+                      <h5 id="boton-info" class="btn btn-success ms-2" (click)="adicionarCarrito(producto.id)"><small class="text-muted fw-bolder"><span id="icono-inf" class="material-symbols-outlined" >shopping_cart</span></small></h5>
                     </div>
                   </div>
               </div>
@@ -30,50 +32,6 @@
       <div class="container" *ngIf="productos.length <= 0">
         <img id="img-no" src="https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-robot-confused-or-mistaking-png-image_8413833.png" class="img-fluid rounded-start" alt="...">
         <h4 id="texto-no">No hay productos en la busqueda seleccionada</h4>
-      </div>
-
-
-      <div class="container-total mt-3">
-        <h5 class="text-end fw-bolder">Totalizado de Productos</h5>
-        <hr>
-        <div>
-          <div id="container-table" class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Tipo</th>
-                  <th scope="col">Valor</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Cantidad Productos</td>
-                  <td>{{cantidadElementos}}</td>
-                </tr>
-                <tr>
-                  <th scope="row"></th>
-                  <td id="total">Total</td>
-                  <td id="total-valor">{{ valorTotal  | currency: 'USD': 'symbol'}}</td>
-                </tr>
-                <tr>
-                  <th scope="row"></th>
-                  <td id="total">Descuentos</td>
-                  <td id="total-descuento">{{ descuentoTotal  | currency: 'USD': 'symbol'}}</td>
-                </tr>
-                <tr>
-                  <th scope="row"></th>
-                  <td id="total">Gran Total</td>
-                  <td id="total-valor">{{ granTotal  | currency: 'USD': 'symbol'}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="container-button-c">
-            <h6 class="btn btn-success">Autorizar Compra</h6>
-          </div>
-        </div>
       </div>
 
       
@@ -99,7 +57,9 @@
                     <h5 class="card-title-modal mt-2">{{ productoElegido.name}}</h5>
                     <h6 class="card-text">Descripcion : <small>{{ productoElegido.description}}</small></h6>
                     <h5 class="card-category">Categoria : {{ productoElegido.category}}</h5>
-                    <h6 class="card-text">Precio :<small :small class="text-muted fw-bolder">{{productoElegido.price | currency: 'USD': 'symbol' }}</small></h6>
+                    <h6 class="card-text">Precio Normal :<small :small class="text-muted fw-bolder">{{productoElegido.price | currency: 'USD': 'symbol' }}</small></h6>
+                    <h6 id="titulo-nombres">Valor con descuento : <small id="valor-nombres">{{obtenerValordescuento(productoElegido.id) | number}} </small> </h6>
+
                   </div>
               </div>
             </div>

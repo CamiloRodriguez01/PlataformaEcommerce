@@ -19,16 +19,9 @@ table tbody tr th{
     vertical-align: middle;
 }
 
-#delete-img{
-    vertical-align: middle;
-}
 
-#deleteDiscont{
-    font-size: 20px;
-    vertical-align: middle;
-}
 .elementos{
-    min-width: 150px;
+    min-width: 100px;
 }
 .elementos span{
     font-size: 20px;
@@ -45,9 +38,6 @@ table tbody tr th{
 }
 .modal-title{
     font-size: 13px;
-}
-#textoInicial{
-    font-size: 12px;
 }
 .modal-header{
     background-color: #eeeeff73;

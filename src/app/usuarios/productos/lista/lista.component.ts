@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../../api-service/api.service';
 import { Producto } from '../../productos/ProductoI';
 import { Toast , ToastConfirmacion , ToastAutentication} from 'src/app/helpers/useAlerts';
+import { Category } from '../Category';
+import { Descuento } from '../../inicio/DescuentoI';
 
 @Component({
   selector: 'app-lista',
@@ -14,6 +16,7 @@ export class ListaComponent {
   itemsPerPage = 10;
   cantidadElementos:number = 0;
   productos: Producto[] = [];
+  nombreCategorias: Category[] = [];
   idActual!: number;
   nombreBusqueda: string = '';
   productosEncontrados: Producto[] = [];
@@ -21,20 +24,31 @@ export class ListaComponent {
   precioMaximo: number = 1000000;
   indiceImagen = 0;
   productoElegido!: Producto;
+  descuento:Descuento[] = [];
 
+  seleccionadoPorDefecto = true;
 
-  //Revisar si se traen como get, o dejarlos fijos. Yo los dejaria fijos jaja
-  categoriasSeleccionadas = [
-    { seleccionado: true, valor: 2 },
-    { seleccionado: true, valor: 4 },
-    { seleccionado: true, valor: 3 }
-  ];
   
   constructor(private apiService: ApiService) {
     this.backupProductos = [...this.productos];
   }
+
   ngOnInit(): void {
-    this.obtenerProductos();
+    this.obtenerProductos()
+    this.obtenerCategorias();
+    this.obtenerDescuentos();
+
+  }
+
+  
+  obtenerDescuentos(): void {
+    this.apiService.obtenerInformacion('/product/discount/').subscribe({
+      next: (datos: any) => {
+        this.descuento = datos.results;
+      },
+      complete: () => {
+      }
+    });
   }
 
   obtenerProductos(): void {
@@ -90,18 +104,18 @@ export class ListaComponent {
     this.productos = this.productos.filter(producto =>
       producto.price<=this.precioMaximo);
   }
-  buscarPorCategory(): void {
-    const categoriasSeleccionadas = this.categoriasSeleccionadas
-      .filter((categoria) => categoria.seleccionado)
-      .map((categoria) => categoria.valor);
 
-      this.productos = this.productos.filter((producto) => {
-        return producto.category.some((categoria) =>
-          categoriasSeleccionadas.includes(categoria)
-        );
-      })
+  buscarPorCategory(): void {
+    const categoriasSeleccionadas = this.nombreCategorias
+      .filter((categoria) => categoria.seleccionado)
+      .map((categoria) => categoria.id);
+  
+    this.productos = this.productos.filter((producto) =>
+      producto.category.some((categoria) => categoriasSeleccionadas.includes(categoria))
+    );
   }
   
+   
   cambiarImagen(direccion: number) {
     this.indiceImagen += direccion;
   }
@@ -131,6 +145,36 @@ export class ListaComponent {
     })
    }
 
+   obtenerCategorias(): void{
+    this.apiService.obtenerInformacion('/product/category/').subscribe(
+      {
+        next: (datos: any) => {
+          this.nombreCategorias = datos.results;
+        },
+        complete: () => {
+          this.nombreCategorias.forEach(categoria => {
+            console.log(categoria.name);
+            categoria.seleccionado = true;
+          });
+        }
+      }
+    );
+   }
+
+   obtenerNombreCategoria(id: number): string {
+    const categoriaEncontrada = this.nombreCategorias.find(categoria => categoria.id === id);
+    return categoriaEncontrada ? categoriaEncontrada.name : '';
+  }
+
+  obtenerDescuento(id: number): number {
+    const categoriaEncontrada = this.descuento.find(e => e.product === id);
+    let descuento = categoriaEncontrada ? categoriaEncontrada.percentage : 0;
+    if (descuento==0)return 0;
+    let precioEncontrado = this.productos.find(e => e.id === id);
+    let precio = precioEncontrado ? precioEncontrado.price : 0;
+    let valor = precio * (1-(descuento/100));
+    return valor;
+  }
 
 
 }

@@ -12,19 +12,14 @@
         </div>
         <div id="filtro-tipo" class="mt-4">
           <h6>Categorias</h6>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="categoriasSeleccionadas[0].seleccionado" value="2" id="flexCheckDefault" (change)="obtenerProductos()">
-            <label class="form-check-label" for="flexCheckDefault">Plantilla</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="categoriasSeleccionadas[1].seleccionado" value="4" id="flexCheckDefault1" (change)="obtenerProductos()">
-            <label class="form-check-label" for="flexCheckDefault">Tutorias</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="categoriasSeleccionadas[2].seleccionado" value="3" id="flexCheckDefault2" (change)="obtenerProductos()">
-            <label class="form-check-label" for="flexCheckDefault">Plataformas</label>
+          <div class="form-check" *ngFor="let categoria of nombreCategorias; let i = index;">
+            <input class="form-check-input" type="checkbox" [value]="categoria.id" id="flexCheckDefault{{i}}" (change)="obtenerProductos()" [(ngModel)]="categoria.seleccionado">
+            <label class="form-check-label" [for]="'flexCheckDefault' + i">{{ obtenerNombreCategoria(categoria.id) }}</label>
           </div>
         </div>
+                
+
+
       </div>
   
       <div class="container-general mt-5 col-md-9">
@@ -37,13 +32,14 @@
               <div class="row g-0">
                 <div class="imagen">
                   <img *ngIf="producto.images[0]" [src]="producto.images[0]['image']" class="img-fluid rounded-start" alt="...">
-                  <img *ngIf="!producto.images[0]" src="https://filestore.community.support.microsoft.com/api/images/ext?url=https%3A%2F%2Fanswerscdn.microsoft.com%2Fstatic%2Fimages%2Fimage-not-found.jpg" class="img-fluid rounded-start" alt="...">
+                  <img *ngIf="!producto.images[0]" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ producto.name}}</h5>
                     <h6 class="card-text" id="description">{{producto.description}}</h6>
                     <h5 class="card-text"><small class="text-muted fw-bolder">{{producto.price | currency: 'USD': 'symbol' }}</small></h5>
-                    <h5 class="card-category">Category:{{producto.category}}</h5>
+                    <h6 *ngIf="obtenerDescuento(producto.id) != 0" class="card-text">Con descuento: <small class="fw-bolder text-danger">{{obtenerDescuento(producto.id) | currency: 'USD': 'symbol' }}</small></h6>
+                    <h5 class="card-category">Category:{{ obtenerNombreCategoria(producto.category[0]) }}</h5>
                     <div id="contenedor-precios">
                       <h5 class="btn btn-success  me-3" (click)="adicionarCarrito(producto.id)"><small class="text-light fw-bolder">Adicionar</small><span class="material-symbols-outlined ms-2">local_shipping</span></h5>
                       <h5 data-bs-toggle="modal" data-bs-target="#informacionModal" class="btn btn-info" (click)="obtenerProductoElegido(producto.id)"><small class="text-muted fw-bolder"><span class="material-symbols-outlined" >info</span></small></h5>
@@ -97,11 +93,14 @@
                   <button *ngIf="productoElegido.images.length >1" class="btn" (click)="cambiarImagen(1)" [disabled]="indiceImagen === productoElegido.images.length - 1"> > </button>
                   <img *ngIf="!productoElegido.images[0]" src="https://filestore.community.support.microsoft.com/api/images/ext?url=https%3A%2F%2Fanswerscdn.microsoft.com%2Fstatic%2Fimages%2Fimage-not-found.jpg" class="img-fluid rounded-start" alt="...">
                 </div>
-                  <div class="card-body">
+                <div class="card-body">
+                    <h3 id="text-imagenes">Imagenes: {{productoElegido.images.length}}</h3>
                     <h5 class="card-title-modal mt-2">{{ productoElegido.name}}</h5>
                     <h6 class="card-text">Descripcion : <small>{{ productoElegido.description}}</small></h6>
-                    <h5 class="card-category">Categoria : {{ productoElegido.category}}</h5>
+                    <h5 class="card-category">Categoria : {{ obtenerNombreCategoria(productoElegido.category[0])}}</h5>
                     <h6 class="card-text">Precio :<small :small class="text-muted fw-bolder">{{productoElegido.price | currency: 'USD': 'symbol' }}</small></h6>
+                    <h6 *ngIf="obtenerDescuento(productoElegido.id) != 0" class="card-text">Con descuento: <small class="fw-bolder text-danger">{{obtenerDescuento(productoElegido.id) | currency: 'USD': 'symbol' }}</small></h6>
+
                     <div id="contenedor-precios">
                       <h5 class="btn btn-success  me-3" (click)="adicionarCarrito(productoElegido.id)"><small class="text-light fw-bolder">Adicionar</small><span class="material-symbols-outlined ms-2">local_shipping</span></h5>
                     </div>

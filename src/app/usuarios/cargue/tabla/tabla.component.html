@@ -20,6 +20,7 @@
               <th scope="col">Precio</th>
               <th scope="col">Categoria</th>
               <th scope="col">Imagenes</th>
+              <th scope="col">Descuento</th>
             </tr>
           </thead>
           <tbody>
@@ -28,19 +29,22 @@
               <td class="elementos" >
                 <span id="edit" class="material-symbols-outlined text-success me-2" data-bs-toggle="modal" data-bs-target="#editModal" translate="no" (click)="obtenerProductoElegido(producto.id)">edit</span>
                 <span id="delete" class="material-symbols-outlined text-danger me-2" translate="no" (click)="borrarInformacion(producto.id)" >delete</span>
-                <span id="delete" class="material-symbols-outlined text-warning" data-bs-toggle="modal" data-bs-target="#imagenModal" translate="no" (click)="guardarId(producto.id)" >add</span>
+                <span id="delete" class="material-symbols-outlined text-warning me-2" data-bs-toggle="modal"  data-bs-target="#imagenModal" translate="no" (click)="guardarId(producto.id)" >photo_camera</span>
               </td>
               <td>{{ producto.name }}</td>
               <td>{{ producto.description }}</td>
               <td>{{ producto.price | currency: 'USD': 'symbol' }}</td>
-              <td>{{ producto.category }}</td>
+              <td>{{ obttenerNombreCategoria(producto.category[0]) }}</td>
               <td id="link-image">
                 <ul>
                   <li *ngFor="let image of producto.images; let i = index">
-                    <a [href]="image.image" target="_blank">{{ i + 1 }}. Ver imagen</a>
+                    <span id="delete-img" class="material-symbols-outlined text-danger me-2" translate="no" (click)="borrarImagen(image.id)" >remove</span><a [href]="image.image" target="_blank">{{ i + 1 }}.imagen</a>
                   </li>
                 </ul>
               </td>
+              <td *ngIf="obtenerDescuento(producto.id) != '0'"  (click)="borrarDescuento(obtenerIdDescuento(producto.id))">{{ obtenerDescuento(producto.id) }} % <span id="deleteDiscont" class="material-symbols-outlined text-danger me-2" translate="no" >delete</span></td>
+              <td *ngIf="obtenerDescuento(producto.id) == '0'" class="text-info"> Adicionar<span id="deleteDiscont" class="material-symbols-outlined text-info" data-bs-toggle="modal" data-bs-target="#discontModal" translate="no" (click)="guardarId(producto.id)" >percent</span> </td>
+
             </tr>
           </tbody>
         </table>
@@ -97,7 +101,10 @@
           <label class="visually-hidden">Price</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">category</span></div>
-            <input type="number" class="form-control" placeholder="Categoria" formControlName="category">
+            <select class="form-select form-select-sm" formControlName="category">
+              <option value="" id="textoInicial" selected>Seleccionar Categoria</option>
+              <option *ngFor="let cat of categoria" [value]="cat.id">{{ cat.name }}</option>
+            </select>
           </div>
         </div>
       </form>
@@ -145,8 +152,12 @@
           <label class="visually-hidden">Price</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">category</span></div>
-            <input type="number" class="form-control" placeholder="Categoria" formControlName="category">
+            <select class="form-select form-select-sm" formControlName="category">
+              <option value="" id="textoInicial" selected>Seleccionar Categoria</option>
+              <option *ngFor="let cat of categoria" [value]="cat.id">{{ cat.name }}</option>
+            </select>
           </div>
+          
         </div>
       </form>
       <div class="modal-footer">
@@ -171,6 +182,38 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButtonImg id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-success" (click)="uploadFile()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="discontModal" tabindex="-1" aria-labelledby="discontModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="discontModalLabel">Editar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="modal-body" [formGroup]="formDiscont">
+          <div class="col-sm-12">
+            <label class="visually-hidden">Porcentaje</label>
+            <div class="input-group">
+              <div class="input-group-text"><span class="material-symbols-outlined" translate="no">percent</span></div>
+              <input type="number" class="form-control" placeholder="Porcentaje" formControlName="percentage">
+            </div>
+          </div>
+          <div class="col-sm-12 mt-2">
+            <label class="visually-hidden">Fecha</label>
+            <div class="input-group">
+              <div class="input-group-text"> <span class="material-symbols-outlined" translate="no">calendar_month</span></div>
+              <input type="date" class="form-control" placeholder="Detalle" formControlName="valid">
+            </div>
+          </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #cerrarModalButtonDis id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="adicionarDescuento()">Guardar</button>
       </div>
     </div>
   </div>

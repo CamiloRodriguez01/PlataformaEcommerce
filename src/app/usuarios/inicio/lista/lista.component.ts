@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../../api-service/api.service';
 import { Producto } from '../../productos/ProductoI';
 import { Toast , ToastConfirmacion , ToastAutentication} from 'src/app/helpers/useAlerts';
-import { Descuento } from '../../inicio/DescuentoI';
+import { Descuento } from '../DescuentoI';
 
 @Component({
   selector: 'app-lista',
@@ -19,41 +19,28 @@ export class ListaComponent {
   productoElegido!: Producto;
   productos: Producto[] = [];
   descuento:Descuento[] = [];
-  descuentoTotal:number = 0;
-  granTotal:number = 0;
+  
 
+  
   constructor(private apiService: ApiService) {
-
   }
   ngOnInit(): void {
     this.obtenerCarrito();
-    this.obtenerDescuentos();
-    
-  }
-
-  obtenerDescuentos(): void {
-    this.apiService.obtenerInformacion('/product/discount/').subscribe({
-      next: (datos: any) => {
-        this.descuento = datos.results;
-      },
-      complete: () => {
-      }
-    });
   }
 
 
   obtenerCarrito(): void {
-    let idsProductos: number[] =[];
-    let idsCarrito: number[] = [];
     this.productos = [];
-    this.apiService.obtenerInformacion('/cart/detail/').subscribe({
+    this.apiService.obtenerInformacion('/product/discount/').subscribe({
       next: (datos: any) => {
-        idsProductos = datos.results.map((resultado: any) => resultado.product);
-        idsCarrito = datos.results.map((resultado: any) => resultado.id);
+        const idsProductos: number[] = datos.results.map((resultado: any) => resultado.product);
+        const idsCarrito: number[] = datos.results.map((resultado: any) => resultado.id);
+        this.obtenerDetallesProductos(idsProductos,idsCarrito);
         this.cantidadElementos = datos.results.length;
+        this.descuento = datos.results;
       },
       complete: () => {
-        this.obtenerDetallesProductos(idsProductos,idsCarrito);
+
       }
     });
   }
@@ -66,13 +53,12 @@ export class ListaComponent {
       },
       complete: () => {
         this.indiceImagen = 0;
-
       }
     });
   }
 
   bucarProducto(id: number): void {
-    this.apiService.obtenerInformacion('/product/detail/' + id).subscribe({
+    this.apiService.obtenerInformacion('/product/discount/' + id).subscribe({
       next: (datos: any) => {
       },
     });
@@ -85,7 +71,6 @@ export class ListaComponent {
 
   obtenerDetallesProductos(idsProductos: number[], idsCarrito: number[]): void {
     this.valorTotal = 0;
-
     const obtenerProducto = (id: number, idCarrito: number) => {
       this.apiService.obtenerInformacion('/product/detail/' + id + '/').subscribe({
         next: (datos: any) => {
@@ -96,9 +81,6 @@ export class ListaComponent {
         complete: () => {
           if (this.productos.length === idsProductos.length) {
             this.carrito = this.productos;
-            this.obteneralorTotalDescuento();
-          this.granTotal = this.valorTotal - this.descuentoTotal;
-
           }
         }
       });
@@ -108,59 +90,50 @@ export class ListaComponent {
       const idCarrito = idsCarrito[index];
       obtenerProducto(id, idCarrito);
     });
-
-
   }
   
 
-  borrarInformacion(id: number): void {
+  adicionarCarrito(id:number): void{
+    let prod:any = {};
+    prod['product'] = id;
+    prod['amount'] = 0;
+
     ToastConfirmacion.fire({
-      html: '¿Estas seguro de quitar el producto del carrito?:',
+      html: '¿Estas seguro de adicionar al carrito?:',
     }).then(async(result) => {
       if (result.isConfirmed) {
-        this.apiService.borrarInformacion('/cart/detail/' + id +'/').subscribe(
+        this.apiService.adicionarInformacionJ('/cart/detail/',prod).subscribe(
           {
             next: (datos: any) => {
             },
-            complete: () => {
-              this.obtenerCarrito();
-              Toast.fire({icon: 'success',title: 'Producto eliminado del carrito'})
-            },
             error: (error: any) => {
+              Toast.fire({icon: 'error',title: 'Favor validar los datos ingresados'})
+            },  
+            complete: () => {
+              Toast.fire({icon: 'success',title: 'Producto adicionado al carrito'})
             }
           }
         );
       }
     })
+   }
+
+   obtenerDatoDescuento(id: number): string {
+    const categoriaEncontrada = this.descuento.find(e => e.product === id);
+    return categoriaEncontrada ? categoriaEncontrada.percentage.toString() : '';
   }
-  
-  obtenerDescuento(id: number): number {
+  obtenerDatoFecha(id: number): string {
+    const categoriaEncontrada = this.descuento.find(e => e.product === id);
+    return categoriaEncontrada ? categoriaEncontrada.valid.toString() : '';
+  }
+
+  obtenerValordescuento(id: number): string {
     const categoriaEncontrada = this.descuento.find(e => e.product === id);
     let descuento = categoriaEncontrada ? categoriaEncontrada.percentage : 0;
-    if (descuento==0)return 0;
     let precioEncontrado = this.productos.find(e => e.id === id);
     let precio = precioEncontrado ? precioEncontrado.price : 0;
     let valor = precio * (1-(descuento/100));
-    return valor;
-    
-  }
-
-  obtenerDescuentoPorcentaje(id: number): number {
-    const categoriaEncontrada = this.descuento.find(e => e.product === id);
-    let descuento = categoriaEncontrada ? categoriaEncontrada.percentage : 0;
-    if (descuento==0)return 0;
-    return descuento;
-    
-  }
-
-  obteneralorTotalDescuento(): void {
-    this.descuento.forEach(element =>{
-      this.productos.forEach(producto => {
-        if(element.product === producto.id){
-          this.descuentoTotal += producto.price*element.percentage/100;
-        }
-      });
-    })
+    return valor.toString();
   }
 
 }

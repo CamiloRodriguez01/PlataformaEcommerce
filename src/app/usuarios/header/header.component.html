@@ -16,7 +16,7 @@
           <div id="opciones">
               <ul class="nav justify-content-end">
                   <div class="items">
-                      <span routerLink="cargue" class="material-symbols-outlined ms-2" id="itemNavbar" >publish</span>
+                      <span *ngIf="permiso" routerLink="cargue" class="material-symbols-outlined ms-2" id="itemNavbar" >publish</span>
                       <span routerLink="perfil" class="material-symbols-outlined ms-2" id="itemNavbar" >account_circle</span>
                       <span routerLink="carro" class="material-symbols-outlined ms-2" id="itemNavbar" >shopping_cart</span>
                       <span (click)="cerrarSesion()" class="material-symbols-outlined ms-2" id="itemNavbar" >logout</span>

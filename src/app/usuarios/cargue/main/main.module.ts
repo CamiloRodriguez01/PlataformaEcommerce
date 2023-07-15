@@ -6,13 +6,15 @@ import { MainComponent } from './main.component';
 import { TablaComponent } from '../tabla/tabla.component';
 import { AdicionarComponent } from '../adicionar/adicionar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CategoryComponent } from '../category/category.component';
 
 
 @NgModule({
   declarations: [
     MainComponent,
     TablaComponent,
-    AdicionarComponent
+    AdicionarComponent,
+    CategoryComponent
   ],
   imports: [
     CommonModule,
