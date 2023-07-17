@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../../api-service/api.service';
 import { Producto } from '../../productos/ProductoI';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Toast , ToastConfirmacion , ToastAutentication} from 'src/app/helpers/useAlerts';
 import { Descuento } from '../../inicio/DescuentoI';
@@ -14,13 +14,13 @@ import { Category } from '../../productos/Category';
 })
 export class TablaComponent {
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 12;
   cantidadElementos:number = 0;
   productos: Producto[] = [];
-  form! : FormGroup; 
-  formAdicionar! : FormGroup; 
-  formDiscont! : FormGroup; 
-  formFile! : FormGroup; 
+  form! : FormGroup;
+  formAdicionar! : FormGroup;
+  formDiscont! : FormGroup;
+  formFile! : FormGroup;
   idActual!:number;
   idImagen!:number;
   fileToUpload: File[] = [];
@@ -48,32 +48,30 @@ export class TablaComponent {
   }
 
   private buildForm(){
-    const textRgx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ]{3,60})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ]*))$/;
-    const numbergx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ0-9]{3,60})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ0-9]*))$/;
     this.form = this.formBuilder.group({
-      name: [''  , [Validators.required, Validators.pattern(textRgx)]],
-      description: ['', [Validators.required, Validators.pattern(textRgx)]],
-      price: ['', [Validators.required, Validators.pattern(numbergx)]],
-      category: ['', [Validators.required, Validators.pattern(numbergx)]],
+      name: [''  , [Validators.required, Validators.minLength(3),Validators.maxLength(60)]],
+      description: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(150)]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      category: ['', [Validators.required]],
     });
 
     this.formAdicionar = this.formBuilder.group({
-      name: [''  , [Validators.required, Validators.pattern(textRgx)]],
-      description: ['', [Validators.required, Validators.pattern(textRgx)]],
-      price: ['', [Validators.required, Validators.pattern(numbergx)]],
-      category: ['', [Validators.required, Validators.pattern(numbergx)]],
+      name: [''  , [Validators.required, Validators.minLength(3),Validators.maxLength(60)]],
+      description: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(150)]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      category: ['', [Validators.required]],
     });
 
     this.formFile = this.formBuilder.group({
-      image: [''  , false],
+      image: [''  , [Validators.required]],
       product: [this.idImagen, false],
     });
 
     this.formDiscont = this.formBuilder.group({
-      percentage: [''  , [Validators.required, Validators.pattern(textRgx)]],
-      valid: ['', [Validators.required, Validators.pattern(textRgx)]],
-      inStock: [0, [Validators.required, Validators.pattern(numbergx)]],
-      product: [ '', [Validators.required, Validators.pattern(/^\d+$/)]],
+      percentage: [''  , [Validators.required,Validators.min(1),Validators.max(100) ]],
+      valid: ['', [Validators.required]],
+      inStock: [0, null],
+      product: [ '', null],
     });
   }
 
@@ -164,7 +162,6 @@ export class TablaComponent {
   }
 
   uploadFile() {
-    console.log("adsadsas");
     for (let i = 0; i < this.fileToUpload.length; i++) {
       const formData = new FormData();
       formData.append('image', this.fileToUpload[i]);
@@ -189,7 +186,7 @@ export class TablaComponent {
     ToastConfirmacion.fire({
       html: '¿Estas seguro de borrar el producto?:',
     }).then(async(result) => {
-        if (result.isConfirmed) {    
+        if (result.isConfirmed) {
         this.apiService.borrarInformacion('/product/detail/' + id +'/').subscribe(
           {
             next: (datos: any) => {
@@ -239,7 +236,7 @@ export class TablaComponent {
     ToastConfirmacion.fire({
       html: '¿Estas seguro de borrar el descuento?:',
     }).then(async(result) => {
-        if (result.isConfirmed) {    
+        if (result.isConfirmed) {
         this.apiService.borrarInformacion('/product/discount/' + id +'/').subscribe(
           {
             next: (datos: any) => {
@@ -264,7 +261,7 @@ export class TablaComponent {
     ToastConfirmacion.fire({
       html: '¿Estas seguro de borrar la imagen?:',
     }).then(async(result) => {
-        if (result.isConfirmed) {    
+        if (result.isConfirmed) {
         this.apiService.borrarInformacion('/product/images/' + id +'/').subscribe(
           {
             next: (datos: any) => {

@@ -28,7 +28,7 @@ export class ListaComponent {
   ngOnInit(): void {
     this.obtenerCarrito();
     this.obtenerDescuentos();
-    
+
   }
 
   obtenerDescuentos(): void {
@@ -77,7 +77,7 @@ export class ListaComponent {
       },
     });
   }
-  
+
 
   cambiarImagen(direccion: number) {
     this.indiceImagen += direccion;
@@ -103,7 +103,7 @@ export class ListaComponent {
         }
       });
     };
-  
+
     idsProductos.forEach((id: number, index: number) => {
       const idCarrito = idsCarrito[index];
       obtenerProducto(id, idCarrito);
@@ -111,7 +111,7 @@ export class ListaComponent {
 
 
   }
-  
+
 
   borrarInformacion(id: number): void {
     ToastConfirmacion.fire({
@@ -133,7 +133,7 @@ export class ListaComponent {
       }
     })
   }
-  
+
   obtenerDescuento(id: number): number {
     const categoriaEncontrada = this.descuento.find(e => e.product === id);
     let descuento = categoriaEncontrada ? categoriaEncontrada.percentage : 0;
@@ -142,7 +142,7 @@ export class ListaComponent {
     let precio = precioEncontrado ? precioEncontrado.price : 0;
     let valor = precio * (1-(descuento/100));
     return valor;
-    
+
   }
 
   obtenerDescuentoPorcentaje(id: number): number {
@@ -150,7 +150,7 @@ export class ListaComponent {
     let descuento = categoriaEncontrada ? categoriaEncontrada.percentage : 0;
     if (descuento==0)return 0;
     return descuento;
-    
+
   }
 
   obteneralorTotalDescuento(): void {
@@ -160,6 +160,27 @@ export class ListaComponent {
           this.descuentoTotal += producto.price*element.percentage/100;
         }
       });
+    })
+  }
+
+  closeCart(): void {
+    ToastConfirmacion.fire({
+      html: '¿Estas seguro de quieres completar la compra?:',
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        this.apiService.adicionarInformacionJ('/cart/generateJson/',{}).subscribe(
+          {
+            next: (datos: any) => {
+            },
+            complete: () => {
+              this.obtenerCarrito();
+              Toast.fire({icon: 'success',title: 'La compra ha sido completada'})
+            },
+            error: (error: any) => {
+            }
+          }
+        );
+      }
     })
   }
 

@@ -61,13 +61,18 @@
           <label class="visually-hidden">Nombre</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">person</span></div>
-            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
+            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name"
+            [ngClass]="{'is-invalid': form.get('name')?.errors && form.get('name')?.dirty, 'is-valid': form.get('name')?.valid}">
+            <div *ngIf="form.get('name')?.errors && form.get('name')?.dirty" class="invalid-feedback">
+              <p *ngIf="form.get('name')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="form.get('name')?.hasError('pattern')">El nombre no cuenta con el formato correcto</p>
+            </div>
           </div>
         </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButton id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="actualizarInformacion(2)">Guardar</button>
+        <button type="button" class="btn btn-success" (click)="actualizarInformacion(2)" [disabled]="form.invalid" >Guardar</button>
       </div>
     </div>
   </div>
@@ -88,13 +93,18 @@
           <label class="visually-hidden">Nombre</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">person</span></div>
-            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
+            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name"
+            [ngClass]="{'is-invalid': formAdicionar.get('name')?.errors && formAdicionar.get('name')?.dirty, 'is-valid': formAdicionar.get('name')?.valid}">
+            <div *ngIf="formAdicionar.get('name')?.errors && formAdicionar.get('name')?.dirty" class="invalid-feedback">
+              <p *ngIf="formAdicionar.get('name')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="formAdicionar.get('name')?.hasError('pattern')">El nombre no cuenta con el formato correcto</p>
+            </div>
           </div>
         </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButtonAd id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="adicionarInformacion()">Guardar</button>
+        <button type="button" class="btn btn-success" (click)="adicionarInformacion()" [disabled]="formAdicionar.invalid">Guardar</button>
       </div>
     </div>
   </div>

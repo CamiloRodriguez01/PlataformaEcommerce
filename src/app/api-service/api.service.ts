@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  URL_BASE = "https://api.eccomerce.brzapps.me";
+  URL_BASE = environment.apiUrl;
   TOKEN = ''
 
   private headers = new HttpHeaders()
@@ -16,7 +17,7 @@ export class ApiService {
     headers: this.headers
   };
 
- 
+
   //Opcion para enviar imagen.
   private headersImage = new HttpHeaders()
   .set('Authorization' , this.cookieValue('token'));
@@ -40,8 +41,8 @@ export class ApiService {
   //Solo utilizada para el ingreso.
   public ingreso(endPoint:string, username:string, password:string) {
     const body = new HttpParams()
-      .set('client_id', '4xdExjjAyzlNYdRdVi7r3OqZHqwaOvD6Jjt7xw4p')
-      .set('client_secret', 'HeKxucasZYrsK0ck70O3fjlTJgbUPrcswAHGhbGsznSxFCJnY01Jl6ty8YqJJdRijK4S4clG2r2sYZvIt4sJIfMmwiVC3dPSL6fANVLrVofiuXakKzuRoLLGvrXSuo7U')
+      .set('client_id', environment.apiClientId)
+      .set('client_secret', environment.apiClientSecret)
       .set('grant_type', 'password')
       .set('username', username)
       .set('password', password)
@@ -93,6 +94,4 @@ export class ApiService {
   public borrarInformacion(endPoint: string): Observable<any> {
     return this.http.delete(this.URL_BASE + endPoint, this.optionsImage);
   }
-  
-  
 }

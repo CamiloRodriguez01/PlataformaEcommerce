@@ -27,8 +27,8 @@
           </div>
         </div>
       </div>
-      <div class="container" *ngIf="productos.length <= 0">
-        <img id="img-no" src="https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-robot-confused-or-mistaking-png-image_8413833.png" class="img-fluid rounded-start" alt="...">
+      <div class="container justify-content-center row" *ngIf="productos.length <= 0">
+        <img src="https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-robot-confused-or-mistaking-png-image_8413833.png" class="img-fluid rounded-top" alt="" style="width: 500px;">
         <h4 id="texto-no">No hay productos en la busqueda seleccionada</h4>
       </div>
 
@@ -71,12 +71,12 @@
             </table>
           </div>
           <div id="container-button-c">
-            <h6 class="btn btn-success">Autorizar Compra</h6>
+            <h6 class="btn btn-success" (click)="closeCart()">Autorizar Compra</h6>
           </div>
         </div>
       </div>
 
-      
+
       <!-- Modal -->
       <div class="modal fade" id="informacionModal" tabindex="-1" aria-labelledby="informacionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -111,7 +111,7 @@
       </div>
 
 
-     
+
     </div>
   </div>
 </div>

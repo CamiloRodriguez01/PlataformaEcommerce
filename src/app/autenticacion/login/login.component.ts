@@ -14,18 +14,17 @@ export class LoginComponent {
 
   username!: string;
   password!: string;
-  form! : FormGroup; 
+  form! : FormGroup;
 
   constructor(private apiService: ApiService, private router: Router , private formBuilder: FormBuilder) {
     this.buildForm();
   }
 
   private buildForm(){
-    const textRgx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ]{3,60})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ]*))$/;
-    const numbergx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ0-9]{3,60})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ0-9]*))$/;
+    const textRgx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ]{3,})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ]*))$/;
     this.form = this.formBuilder.group({
       username: [''  , [Validators.required, Validators.pattern(textRgx)]],
-      password: [''  , [Validators.required, Validators.pattern(textRgx)]],
+      password: [''  , [Validators.required]],
     });
 
   }
