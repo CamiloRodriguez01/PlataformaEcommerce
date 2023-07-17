@@ -80,37 +80,61 @@
           <label class="visually-hidden">Nombre</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">person</span></div>
-            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
+            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name"
+            [ngClass]="{'is-invalid': form.get('name')?.errors && form.get('name')?.dirty, 'is-valid': form.get('name')?.valid}">
+            <div *ngIf="form.get('name')?.errors && form.get('name')?.dirty" class="invalid-feedback">
+              <p *ngIf="form.get('name')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="form.get('name')?.hasError('pattern')">El nombre no cuenta con el formato correcto</p>
+              <p *ngIf="form.get('name')?.hasError('minlength')">El nombre debe de tener minimo 3 caracteres</p>
+              <p *ngIf="form.get('name')?.hasError('maxlength')">El nombre debe de tener maximo 60 caracteres</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-12 mt-2">
           <label class="visually-hidden">Description</label>
           <div class="input-group">
             <div class="input-group-text"> <span class="material-symbols-outlined" translate="no">description</span></div>
-            <textarea type="text" class="form-control" placeholder="Detalle" formControlName="description"></textarea>
+            <textarea type="text" class="form-control" placeholder="Detalle" formControlName="description"
+            [ngClass]="{'is-invalid': form.get('description')?.errors && form.get('description')?.dirty, 'is-valid': form.get('description')?.valid}"></textarea>
+            <div *ngIf="form.get('description')?.errors && form.get('description')?.dirty" class="invalid-feedback">
+              <p *ngIf="form.get('description')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="form.get('description')?.hasError('pattern')">El nombre no cuenta con el formato correcto</p>
+              <p *ngIf="form.get('description')?.hasError('minlength')">El nombre debe de tener minimo 3 caracteres</p>
+              <p *ngIf="form.get('description')?.hasError('maxlength')">El nombre debe de tener maximo 150 caracteres</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-12 mt-2">
           <label class="visually-hidden">Price</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">payments</span></div>
-            <input type="number" class="form-control" placeholder="Precio" formControlName="price">
+            <input type="number" class="form-control" placeholder="Precio" formControlName="price"
+            [ngClass]="{'is-invalid': form.get('price')?.errors && form.get('price')?.dirty, 'is-valid': form.get('price')?.valid}">
+            <div *ngIf="form.get('price')?.errors && form.get('price')?.dirty" class="invalid-feedback">
+              <p *ngIf="form.get('price')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="form.get('price')?.hasError('pattern')">El precio minimo debe de ser 1</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-12 mt-2">
           <label class="visually-hidden">Price</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">category</span></div>
-            <select class="form-select form-select-sm" formControlName="category">
+            <select class="form-select form-select-sm" formControlName="category"
+            [ngClass]="{'is-invalid': form.get('category')?.errors && form.get('category')?.dirty, 'is-valid': form.get('category')?.valid}">
+            >
               <option value="" id="textoInicial" selected>Seleccionar Categoria</option>
               <option *ngFor="let cat of categoria" [value]="cat.id">{{ cat.name }}</option>
             </select>
+            <div *ngIf="form.get('category')?.errors && form.get('category')?.dirty" class="invalid-feedback">
+              <p *ngIf="form.get('category')?.hasError('required')">La categoria es requerida</p>
+            </div>
           </div>
         </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButton id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="actualizarInformacion(2)">Guardar</button>
+        <button type="button" class="btn btn-success" (click)="actualizarInformacion(2)" [disabled]="form.invalid">Guardar</button>
       </div>
     </div>
   </div>
@@ -131,38 +155,61 @@
           <label class="visually-hidden">Nombre</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">person</span></div>
-            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
+            <input type="text" class="form-control" placeholder="Nombre"  formControlName="name"
+            [ngClass]="{'is-invalid': formAdicionar.get('name')?.errors && formAdicionar.get('name')?.dirty, 'is-valid': formAdicionar.get('name')?.valid}">
+            <div *ngIf="formAdicionar.get('name')?.errors && formAdicionar.get('name')?.dirty" class="invalid-feedback">
+              <p *ngIf="formAdicionar.get('name')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="formAdicionar.get('name')?.hasError('pattern')">El nombre no cuenta con el formato correcto</p>
+              <p *ngIf="formAdicionar.get('name')?.hasError('minlength')">El nombre debe de tener minimo 3 caracteres</p>
+              <p *ngIf="formAdicionar.get('name')?.hasError('maxlength')">El nombre debe de tener maximo 60 caracteres</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-12 mt-2">
           <label class="visually-hidden">Description</label>
           <div class="input-group">
             <div class="input-group-text"> <span class="material-symbols-outlined" translate="no">description</span></div>
-            <textarea type="text" class="form-control" placeholder="Detalle" formControlName="description"></textarea>
+            <textarea type="text" class="form-control" placeholder="Detalle" formControlName="description"
+            [ngClass]="{'is-invalid': formAdicionar.get('description')?.errors && formAdicionar.get('description')?.dirty, 'is-valid': formAdicionar.get('description')?.valid}"></textarea>
+            <div *ngIf="formAdicionar.get('description')?.errors && formAdicionar.get('description')?.dirty" class="invalid-feedback">
+              <p *ngIf="formAdicionar.get('description')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="formAdicionar.get('description')?.hasError('pattern')">El nombre no cuenta con el formato correcto</p>
+              <p *ngIf="formAdicionar.get('description')?.hasError('minlength')">El nombre debe de tener minimo 3 caracteres</p>
+              <p *ngIf="formAdicionar.get('description')?.hasError('maxlength')">El nombre debe de tener maximo 150 caracteres</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-12 mt-2">
           <label class="visually-hidden">Price</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">payments</span></div>
-            <input type="number" class="form-control" placeholder="Precio" formControlName="price">
+            <input type="number" class="form-control" placeholder="Precio" formControlName="price"
+            [ngClass]="{'is-invalid': formAdicionar.get('price')?.errors && formAdicionar.get('price')?.dirty, 'is-valid': formAdicionar.get('price')?.valid}">
+            <div *ngIf="formAdicionar.get('price')?.errors && formAdicionar.get('price')?.dirty" class="invalid-feedback">
+              <p *ngIf="formAdicionar.get('price')?.hasError('required')">El nombre es requerido</p>
+              <p *ngIf="formAdicionar.get('price')?.hasError('pattern')">El precio minimo debe de ser 1</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-12 mt-2">
           <label class="visually-hidden">Price</label>
           <div class="input-group">
             <div class="input-group-text"><span class="material-symbols-outlined" translate="no">category</span></div>
-            <select class="form-select form-select-sm" formControlName="category">
+            <select class="form-select form-select-sm" formControlName="category"
+            [ngClass]="{'is-invalid': formAdicionar.get('category')?.errors && formAdicionar.get('category')?.dirty, 'is-valid': formAdicionar.get('category')?.valid}">
+            >
               <option value="" id="textoInicial" selected>Seleccionar Categoria</option>
               <option *ngFor="let cat of categoria" [value]="cat.id">{{ cat.name }}</option>
             </select>
+            <div *ngIf="formAdicionar.get('category')?.errors && formAdicionar.get('category')?.dirty" class="invalid-feedback">
+              <p *ngIf="formAdicionar.get('category')?.hasError('required')">La categoria es requerida</p>
+            </div>
           </div>
-          
         </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButtonAd id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="adicionarInformacion()">Guardar</button>
+        <button type="button" class="btn btn-success" (click)="adicionarInformacion()" [disabled]="formAdicionar.invalid">Guardar</button>
       </div>
     </div>
   </div>
@@ -200,20 +247,30 @@
             <label class="visually-hidden">Porcentaje</label>
             <div class="input-group">
               <div class="input-group-text"><span class="material-symbols-outlined" translate="no">percent</span></div>
-              <input type="number" class="form-control" placeholder="Porcentaje" formControlName="percentage">
+              <input type="number" class="form-control" placeholder="Porcentaje" formControlName="percentage"
+              [ngClass]="{'is-invalid': formDiscont.get('percentage')?.errors && formDiscont.get('percentage')?.dirty, 'is-valid': formDiscont.get('percentage')?.valid}">
+              <div *ngIf="formDiscont.get('percentage')?.errors && formDiscont.get('percentage')?.dirty" class="invalid-feedback">
+                <p *ngIf="formDiscont.get('percentage')?.hasError('required')">El porcentaje requerido</p>
+                <p *ngIf="formDiscont.get('percentage')?.hasError('min')">El porcentaje minimo es 1</p>
+                <p *ngIf="formDiscont.get('percentage')?.hasError('max')">El porcentaje maximo es 100</p>
+              </div>
             </div>
           </div>
           <div class="col-sm-12 mt-2">
             <label class="visually-hidden">Fecha</label>
             <div class="input-group">
               <div class="input-group-text"> <span class="material-symbols-outlined" translate="no">calendar_month</span></div>
-              <input type="date" class="form-control" placeholder="Detalle" formControlName="valid">
+              <input type="date" class="form-control" placeholder="Detalle" formControlName="valid"
+              [ngClass]="{'is-invalid': formDiscont.get('valid')?.errors && formDiscont.get('valid')?.dirty, 'is-valid': formDiscont.get('valid')?.valid}">
+              <div *ngIf="formDiscont.get('valid')?.errors && formDiscont.get('valid')?.dirty" class="invalid-feedback">
+                <p *ngIf="formDiscont.get('valid')?.hasError('required')">La fecha de validez es requerida</p>
+              </div>
             </div>
           </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButtonDis id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="adicionarDescuento()">Guardar</button>
+        <button type="button" class="btn btn-success" (click)="adicionarDescuento()" [disabled]="formDiscont.invalid" >Guardar</button>
       </div>
     </div>
   </div>

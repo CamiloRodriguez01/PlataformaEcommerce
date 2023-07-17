@@ -1,0 +1,38 @@
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="card-body">
+      <h5 class="card-title">
+        <div class="row">
+          <div class="col-6">Compra Id: {{ id }}</div>
+          <div class="col-3">Fecha: {{ dateTime.toDateString() }}</div>
+          <div class="col-3">Hora: {{ dateTime.getHours() }}:{{ dateTime.getMinutes() }}</div>
+        </div>
+      </h5>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="table-dark">
+              <caption>Productos</caption>
+              <tr>
+                <th scope="col" class="col-8">Nombre</th>
+                <th scope="col" class="col-2">Cantidad</th>
+                <th scope="col" class="col-2">Precio</th>
+              </tr>
+              </thead>
+              <tbody *ngFor="let configObj of config" class="table-group-divider">
+                <tr >
+                  <td scope="row">{{findProduct(configObj.product)?.name}}</td>
+                  <td>{{(configObj.amount == 0)? 1 : configObj.amount}}</td>
+                  <td>{{findProduct(configObj.product)?.price | currency: 'USD': 'symbol'}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+
+              </tfoot>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

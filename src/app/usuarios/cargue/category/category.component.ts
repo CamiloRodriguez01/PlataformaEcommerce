@@ -15,9 +15,9 @@ export class CategoryComponent {
   itemsPerPage = 10;
   cantidadElementos:number = 0;
   productos: Producto[] = [];
-  form! : FormGroup; 
-  formAdicionar! : FormGroup; 
-  formFile! : FormGroup; 
+  form! : FormGroup;
+  formAdicionar! : FormGroup;
+  formFile! : FormGroup;
   idActual!:number;
   idImagen!:number;
   fileToUpload: File[] = [];
@@ -34,21 +34,10 @@ export class CategoryComponent {
     const numbergx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ0-9]{3,60})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ0-9]*))$/;
     this.form = this.formBuilder.group({
       name: [''  , [Validators.required, Validators.pattern(textRgx)]],
-      description: ['', [Validators.required, Validators.pattern(textRgx)]],
-      price: ['', [Validators.required, Validators.pattern(numbergx)]],
-      category: ['', [Validators.required, Validators.pattern(numbergx)]],
     });
 
     this.formAdicionar = this.formBuilder.group({
       name: [''  , [Validators.required, Validators.pattern(textRgx)]],
-      description: ['', [Validators.required, Validators.pattern(textRgx)]],
-      price: ['', [Validators.required, Validators.pattern(numbergx)]],
-      category: ['', [Validators.required, Validators.pattern(numbergx)]],
-    });
-
-    this.formFile = this.formBuilder.group({
-      image: [''  , false],
-      product: [this.idImagen, false],
     });
   }
 
@@ -135,7 +124,7 @@ export class CategoryComponent {
     ToastConfirmacion.fire({
       html: '¿Estas seguro de borrar el producto?:',
     }).then(async(result) => {
-        if (result.isConfirmed) {    
+        if (result.isConfirmed) {
         this.apiService.borrarInformacion('/product/category/' + id +'/').subscribe(
           {
             next: (datos: any) => {

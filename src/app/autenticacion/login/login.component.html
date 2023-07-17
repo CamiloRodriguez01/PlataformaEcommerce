@@ -30,18 +30,26 @@
                   <h6 id="texto-general-titulo">Nombre de usuario</h6>
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">mail</span></span>
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="Usuario" formControlName="username">
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="Usuario" formControlName="username"
+                    [ngClass]="{'is-invalid': form.get('username')?.errors && form.get('username')?.dirty}">
+                    <div *ngIf="form.get('username')?.errors && form.get('username')?.dirty" class="invalid-feedback">
+                      <p *ngIf="form.get('username')?.hasError('required')">El usuario es requerido</p>
+                      <p *ngIf="form.get('username')?.hasError('pattern')">El usuario no cuenta con el formato correcto</p>
+                    </div>
                   </div>
                 </div>
                 <div class="form-outline mb-3">
                   <h6 id="texto-general-titulo">Contraseña</h6>
                   <div class="input-group">
                     <span class="input-group-text"><span class="material-symbols-outlined">lock</span></span>
-                    <input type="password" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="contraseña" formControlName="password">
+                    <input type="password" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="contraseña" formControlName="password"
+                    [ngClass]="{'is-invalid': form.get('password')?.errors && form.get('password')?.dirty}">
+                    <div *ngIf="form.get('password')?.errors && form.get('password')?.dirty" class="invalid-feedback">
+                      <p *ngIf="form.get('password')?.hasError('required')">La contraseña es requerida</p>                    </div>
                   </div>
                 </div>
                 <div id="container-button">
-                  <button type="button" class="btn btn-primary btn-block mb-2" (click)="verificarUsuario()">Ingresar</button>
+                  <button type="button" class="btn btn-primary btn-block mb-2" (click)="verificarUsuario()" [disabled]="form.invalid">Ingresar</button>
                 </div>
                 <div id="container-reg">
                   <h6 class="me-1">¿No tienes cuenta?</h6>

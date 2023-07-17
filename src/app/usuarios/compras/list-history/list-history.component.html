@@ -1,0 +1,20 @@
+<div class="container-general mt-4">
+  <h5 class="text-center fw-bolder">Mis Compras</h5>
+  <h6 class="text-start">A continuacion se muestran las compras que has realizado.</h6>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="container" *ngIf="history.length > 0">
+        <div class="row">
+          <div class="col-lg-12" *ngFor="let historyItem of history">
+            <app-card-history [date]="historyItem.created_at" [id]="historyItem.id" [config]="historyItem.config" ></app-card-history>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container justify-content-center row" *ngIf="history.length <= 0">
+      <img src="https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-robot-confused-or-mistaking-png-image_8413833.png" class="img-fluid rounded-top" alt="" style="width: 500px;">
+      <h4 id="texto-no">No hay productos en la busqueda seleccionada</h4>
+    </div>
+  </div>
+</div>
