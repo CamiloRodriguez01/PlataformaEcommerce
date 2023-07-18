@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api-service/api.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Toast , ToastFingerPrint} from 'src/app/helpers/useAlerts';
+import { Toast , ToastFingerPrint, ToastAutentication} from 'src/app/helpers/useAlerts';
 import { Capacitor } from '@capacitor/core';
 import { BiometricAuth,CheckBiometryResult,BiometryType,BiometryErrorType,BiometryError } from '@aparajita/capacitor-biometric-auth'
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';

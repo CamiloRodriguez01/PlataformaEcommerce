@@ -28,7 +28,7 @@ export class ListaComponent {
 
   seleccionadoPorDefecto = true;
 
-  
+
   constructor(private apiService: ApiService) {
     this.backupProductos = [...this.productos];
   }
@@ -40,7 +40,7 @@ export class ListaComponent {
 
   }
 
-  
+
   obtenerDescuentos(): void {
     this.apiService.obtenerInformacion('/product/discount/').subscribe({
       next: (datos: any) => {
@@ -80,7 +80,7 @@ export class ListaComponent {
   get totalPages(): number {
     return Math.ceil(this.cantidadElementos / this.itemsPerPage);
   }
-  
+
   obtenerProductoElegido(id: number): void {
     this.apiService.obtenerInformacion('/product/detail/' + id).subscribe(
       {
@@ -109,13 +109,13 @@ export class ListaComponent {
     const categoriasSeleccionadas = this.nombreCategorias
       .filter((categoria) => categoria.seleccionado)
       .map((categoria) => categoria.id);
-  
+
     this.productos = this.productos.filter((producto) =>
       producto.category.some((categoria) => categoriasSeleccionadas.includes(categoria))
     );
   }
-  
-   
+
+
   cambiarImagen(direccion: number) {
     this.indiceImagen += direccion;
   }
@@ -135,7 +135,7 @@ export class ListaComponent {
             },
             error: (error: any) => {
               Toast.fire({icon: 'error',title: 'Favor validar los datos ingresados'})
-            },  
+            },
             complete: () => {
               Toast.fire({icon: 'success',title: 'Producto adicionado al carrito'})
             }

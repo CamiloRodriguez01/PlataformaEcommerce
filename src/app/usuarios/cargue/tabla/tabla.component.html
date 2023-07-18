@@ -29,7 +29,8 @@
               <td class="elementos" >
                 <span id="edit" class="material-symbols-outlined text-success me-2" data-bs-toggle="modal" data-bs-target="#editModal" translate="no" (click)="obtenerProductoElegido(producto.id)">edit</span>
                 <span id="delete" class="material-symbols-outlined text-danger me-2" translate="no" (click)="borrarInformacion(producto.id)" >delete</span>
-                <span id="delete" class="material-symbols-outlined text-warning me-2" data-bs-toggle="modal"  data-bs-target="#imagenModal" translate="no" (click)="guardarId(producto.id)" >photo_camera</span>
+                <span id="delete" class="material-symbols-outlined text-warning me-2" data-bs-toggle="modal"  data-bs-target="#imagenModalPhoto" translate="no" (click)="guardarId(producto.id)" >photo_camera</span>
+                <span id="delete" class="material-symbols-outlined text-warning me-2" data-bs-toggle="modal"  data-bs-target="#imagenModal" translate="no" (click)="guardarId(producto.id)" >upload</span>
               </td>
               <td>{{ producto.name }}</td>
               <td>{{ producto.description }}</td>
@@ -229,6 +230,28 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #cerrarModalButtonImg id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-success" (click)="uploadFile()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="imagenModalPhoto" tabindex="-1" aria-labelledby="imagenModalPhotolLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imagenModalPhotoLabel">Editar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="modal-body" [formGroup]="formFile">
+        <h6 class="btn btn-primary" type="button" id="texto-boton" (click)="takePicture()"><span class="material-symbols-outlined align-center">photo_camera</span>Tomar Foto</h6>
+        <!-- <div *ngIf="imageView" id="contenedorImagen" class="mt-3">
+          <img class="img" [src]="imageView">
+        </div> -->
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #cerrarModalButtonImgPhoto id="cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="uploadFilePhoto()">Guardar</button>
       </div>
     </div>
   </div>

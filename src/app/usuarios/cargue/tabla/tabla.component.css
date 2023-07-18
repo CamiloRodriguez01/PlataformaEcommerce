@@ -73,3 +73,9 @@ table li{
     cursor: pointer;
     min-width: 150px;
 }
+#texto-boton{
+    font-size: 12px;
+}
+#texto-boton span{
+    vertical-align: middle;
+}
