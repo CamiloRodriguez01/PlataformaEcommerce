@@ -1,0 +1,64 @@
+.container-general {
+  background: linear-gradient(90deg, #001C30 18%, #254b66 61%, #354550 100%);
+  min-height: 100vh;
+  display: flex;
+  place-content: center;
+}
+
+@media (max-width: 767px) {
+  .container-general {
+    min-height: auto;
+  }
+
+  #container-ingreso,
+  #container-titulos {
+    margin-bottom: 30px;
+  }
+}
+#container-titulos{
+  padding: 10px;
+
+}
+#texto-normal{
+  color: white;
+  font-size: 17px;
+
+}
+#texto-titulo{
+  color: white;
+  font-size: 50px;
+}
+#texto-titulo span{
+  font-size: 40px;
+}
+#container-login{
+  box-shadow: 2px -2px 26px -3px rgba(0,0,0,0.75);
+}
+#container-button{
+  display: grid;
+  place-content: center;
+}
+#container-button button{
+  font-size: 13px;
+  box-shadow: 2px -2px 10px -3px rgba(0,0,0,0.75);
+}
+#icono{
+  font-size: 25px;
+  color: white;
+}
+#texto-registro{
+  font-size: 13px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+input{
+  font-size: 13px;
+}
+#container-ingreso h1, #container-ingreso p{
+  text-align: end;
+}
+#banderas{
+  display: flex;
+  justify-content: flex-end;
+}

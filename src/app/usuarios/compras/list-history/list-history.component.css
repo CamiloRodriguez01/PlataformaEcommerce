@@ -1,0 +1,9 @@
+.container-general{
+  height: 100%;
+  min-height: 100vh;
+}
+#texto-no{
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+}

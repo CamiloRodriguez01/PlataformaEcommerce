@@ -1,0 +1,10 @@
+#container-general{
+  height: 100vh;
+}
+input, textarea {
+  width: 100%;
+}
+
+input, textarea, button {
+  font-size: 13px;
+}

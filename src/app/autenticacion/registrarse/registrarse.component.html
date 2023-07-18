@@ -1,0 +1,132 @@
+<section class="container-general align-items-center">
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" id="fondo">
+    <div class="container">
+      <div class="row align-items-center">
+        <div id="container-titulos" class="col-lg-6">
+          <div id="container-login" class="card">
+            <div class="card-body">
+              <form  [formGroup]="form" class="row">
+                <h6 class="text-center fw-bolder">Registrarse</h6>
+                <div class="">
+                    <div class="form-outline input-group">
+                      <span class="input-group-text"><span class="material-symbols-outlined">account_circle</span></span>
+                      <input type="text" class="form-control" placeholder="Nombre Usuario" formControlName="username"
+                      [ngClass]="{'is-invalid': form.get('username')?.errors && form.get('username')?.dirty, 'is-valid': form.get('username')?.valid}">
+                      <div *ngIf="form.get('username')?.errors && form.get('username')?.dirty" class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.username" >
+                          <small *ngIf="form.get('username')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-12 my-3">
+                  <div class="input-group form-outline">
+                    <span class="input-group-text"><span class="material-symbols-outlined">person</span></span>
+                    <input type="text" class="form-control" placeholder="Nombre" formControlName="first_name"
+                    [ngClass]="{'is-invalid': form.get('first_name')?.errors && form.get('first_name')?.dirty, 'is-valid': form.get('first_name')?.valid}">
+                      <div *ngIf="form.get('first_name')?.errors && form.get('first_name')?.dirty" class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.first_name" >
+                          <small *ngIf="form.get('first_name')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-12 my-3">
+                  <div class="input-group form-outline">
+                    <span class="input-group-text"><span class="material-symbols-outlined">badge</span></span>
+                    <input type="text" class="form-control" placeholder="Apellido" formControlName="last_name"
+                    [ngClass]="{'is-invalid': form.get('last_name')?.errors && form.get('last_name')?.dirty, 'is-valid': form.get('last_name')?.valid}">
+                      <div *ngIf="form.get('last_name')?.errors && form.get('last_name')?.dirty" class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.last_name" >
+                          <small *ngIf="form.get('last_name')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-12 my-3">
+                  <div class="input-group form-outline">
+                    <span class="input-group-text"><span class="material-symbols-outlined">location_city</span></span>
+                    <input type="text" class="form-control" placeholder="Direccion" formControlName="address"
+                    [ngClass]="{'is-invalid': form.get('address')?.errors && form.get('address')?.dirty, 'is-valid': form.get('address')?.valid}">
+                      <div *ngIf="form.get('address')?.errors && form.get('address')?.dirty" class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.address" >
+                          <small *ngIf="form.get('address')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-12 my-3">
+                  <div class="input-group form-outline">
+                    <span class="input-group-text"><span class="material-symbols-outlined">mail</span></span>
+                    <input type="text" class="form-control" placeholder="Correo Electronico" formControlName="email"
+                    [ngClass]="{'is-invalid': form.get('email')?.errors && form.get('email')?.dirty, 'is-valid': form.get('email')?.valid}">
+                      <div *ngIf="form.get('email')?.errors && form.get('email')?.dirty" class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.email" >
+                          <small *ngIf="form.get('email')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-12 my-3">
+                  <div class="input-group form-outline">
+                    <span class="input-group-text"><span class="material-symbols-outlined">lock</span></span>
+                    <input type="password" class="form-control" placeholder="Contraseña" formControlName="password"
+                    [ngClass]="{'is-invalid': form.get('password')?.errors && form.get('password')?.dirty, 'is-valid': form.get('password')?.valid}">
+                      <div *ngIf="form.get('password')?.errors && form.get('password')?.dirty" class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.password" >
+                          <small *ngIf="form.get('password')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-12 my-3">
+                  <div class="input-group form-outline">
+                    <span class="input-group-text"><span class="material-symbols-outlined">lock</span></span>
+                    <input type="password" class="form-control" placeholder="Confirmar Contraseña" formControlName="password2"
+                    [ngClass]="{'is-invalid': (form.get('password2')?.errors && form.get('password2')?.dirty) || form.errors , 'is-valid': form.get('password2')?.valid}">
+                      <div *ngIf="form.get('password2')?.errors && form.get('password2')?.dirty || form.errors " class="invalid-feedback">
+                        <ng-container *ngFor="let error of errorMessage.password2" >
+                          <small *ngIf="form.get('password2')?.hasError(error.type)">{{error.message}}</small><br>
+                        </ng-container>
+                        <small *ngIf="form.errors">La contraseña no coincide</small><br>
+                      </div>
+                  </div>
+                </div>
+                <div id="container-button">
+                  <button type="submit" class="btn btn-primary success btn-block mb-2" (click)="adicionarInformacion()" [disabled]="form.invalid">Registrarse</button>
+                </div>
+                <div>
+                  <p routerLink="" id="texto-registro" class="text-center">Iniciar Sesión</p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="container-ingreso" class="col-lg-6">
+          <div id="banderas">
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+            <span id="icono" class="material-symbols-outlined">sports_score</span>
+          </div>
+          <h1 id="texto-titulo" class="my-1 display-3 fw-bold ls-tight">
+            El mejor comercio <br />
+            <span class="text-primary"> de software.</span>
+          </h1>
+          <p id="texto-normal">
+            Registrate y podras encontrar todos los productos que necesites, y a su vez cargar tus propios propductos.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

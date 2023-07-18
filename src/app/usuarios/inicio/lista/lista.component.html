@@ -1,0 +1,77 @@
+<div class="container-general mt-4">
+  <h5 class="text-center fw-bolder">Productos en Descuento</h5>
+  <h6 class="text-start">A continuaciòn se muestran los productos que se encuentran en descuento.</h6>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="container" *ngIf="productos.length > 0">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let producto of carrito">
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="imagen">
+                  <img *ngIf="producto.images[0]" [src]="producto.images[0]['image']" class="img-fluid rounded-start" alt="...">
+                  <img *ngIf="!producto.images[0]" src="https://filestore.community.support.microsoft.com/api/images/ext?url=https%3A%2F%2Fanswerscdn.microsoft.com%2Fstatic%2Fimages%2Fimage-not-found.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.name}}</h5>
+                    <h6 id="titulo-nombres">Descuento de : <small id="valor-nombres"> {{obtenerDatoDescuento(producto.id) }} % </small></h6>
+                    <h6 id="titulo-nombres">Descuento hasta : <small id="valor-nombres">{{obtenerDatoFecha(producto.id) | date}}  </small></h6>
+                    <h6 id="titulo-nombres">Valor con descuento : <small id="valor-nombres">{{obtenerValordescuento(producto.id) | number}} </small> </h6>
+                    <div id="contenedor-precios">
+                      <h5 class="card-text" id="precio-card">Valor Normal : <small class="text-muted fw-bolder">{{(producto.price) | currency: 'USD': 'symbol' }}</small></h5>
+                      <h5 id="boton-info" data-bs-toggle="modal" data-bs-target="#informacionModal" class="btn btn-info ms-2" (click)="obtenerProductoElegido(producto.id)"><small class="text-muted fw-bolder"><span id="icono-inf" class="material-symbols-outlined" >info</span></small></h5>
+                      <h5 id="boton-info" class="btn btn-success ms-2" (click)="adicionarCarrito(producto.id)"><small class="text-muted fw-bolder"><span id="icono-inf" class="material-symbols-outlined" >shopping_cart</span></small></h5>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" *ngIf="productos.length <= 0">
+        <img id="img-no" src="https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-robot-confused-or-mistaking-png-image_8413833.png" class="img-fluid rounded-start" alt="...">
+        <h4 id="texto-no">No hay productos en la busqueda seleccionada</h4>
+      </div>
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="informacionModal" tabindex="-1" aria-labelledby="informacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="informacionModalLabel">Detalle Producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row g-0" *ngIf="productoElegido">
+                <div id="container-imagenes">
+                  <img *ngIf="productoElegido.images.length > 0" [src]="productoElegido.images[indiceImagen]['image']" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="container-button">
+                  <button *ngIf="productoElegido.images.length >1" class="btn" (click)="cambiarImagen(-1)" [disabled]="indiceImagen === 0"> < </button>
+                  <button *ngIf="productoElegido.images.length >1" class="btn" (click)="cambiarImagen(1)" [disabled]="indiceImagen === productoElegido.images.length - 1"> > </button>
+                  <img *ngIf="!productoElegido.images[0]" src="https://filestore.community.support.microsoft.com/api/images/ext?url=https%3A%2F%2Fanswerscdn.microsoft.com%2Fstatic%2Fimages%2Fimage-not-found.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                  <div class="card-body">
+                    <h5 class="card-title-modal mt-2">{{ productoElegido.name}}</h5>
+                    <h6 class="card-text">Descripcion : <small>{{ productoElegido.description}}</small></h6>
+                    <h5 class="card-category">Categoria : {{ productoElegido.category}}</h5>
+                    <h6 class="card-text">Precio Normal :<small :small class="text-muted fw-bolder">{{productoElegido.price | currency: 'USD': 'symbol' }}</small></h6>
+                    <h6 id="titulo-nombres">Valor con descuento : <small id="valor-nombres">{{obtenerValordescuento(productoElegido.id) | number}} </small> </h6>
+
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+     
+    </div>
+  </div>
+</div>

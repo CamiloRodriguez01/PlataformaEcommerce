@@ -1,0 +1,85 @@
+
+#numeroIcono{
+  font-size: 10px;
+  border: 1px solid rgb(214, 214, 214);
+}
+
+.navBar{
+  height: 50px;
+  background: #001C30;
+  box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.58);
+}
+
+.navBar #contenerBrand {
+  display: flex;
+  flex-wrap: wrap;
+}
+.navBar #contenerBrand a{
+  font-size: 13px;
+  font-weight: bolder;
+  text-transform: capitalize;
+  color: white;
+  border-right: 1px solid rgb(173, 173, 173);
+  padding-right: 10px;
+  margin-right: 5px;
+}
+
+#mis-compras{
+  border-right: 1px solid rgb(173, 173, 173);
+  padding-right: 10px;
+  margin-right: 25px;
+}
+.navBar #contenerBrand span{
+  font-size: 25px;
+  margin-top: 4px;
+  color: white;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+.navBar #contenerBrand label{
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+}
+.elementNav{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+#opciones input{
+  height: 25px;
+  font-size: 10px;
+}
+#opciones #itemNavbar{
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+}
+#opciones input:hover{
+  box-shadow: 0px 0px 5px 3px rgba(148,145,148,1);
+}
+#opciones #itemNavbar:hover{
+  border-radius: 40%;
+  box-shadow: 0px 0px 5px 3px rgba(148,145,148,1);
+}
+
+#logoEmpresa{
+  max-width: 80px;
+  max-height: 30px;
+}
+#notificaciones{
+  background-color: transparent; border: none;
+}
+@media (max-width: 500px) {
+  .navBar #contenerBrand label{
+      display: none;
+  }
+  .navbar-brand{
+    display: none;
+  }
+
+}
+
+img, a{
+  cursor: pointer;
+}

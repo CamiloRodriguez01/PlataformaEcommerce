@@ -1,0 +1,116 @@
+<div class="container-gp">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 mt-5">
+        <h5 class="text-center fw-bolder mb-4">Filtros</h5>
+        <input type="text" class="input-busqueda" [(ngModel)]="nombreBusqueda" placeholder="Buscar nombre.." (input)="obtenerProductos()">
+        <div id="filtro-precios" class="mt-4">
+          <h6>Filtrar por valor maximo</h6>
+          <input type="range" class="form-range" min="0" max="1000000" step="100" id="customRange3" value="1000000" [(ngModel)]="precioMaximo" (input)="obtenerProductos()">
+          <h5 for="customRange3" class="form-label text-center"  >{{precioMaximo | currency: 'USD': 'symbol' }}</h5>
+        </div>
+        <div id="filtro-tipo" class="mt-4">
+          <h6>Categorias</h6>
+          <div class="form-check" *ngFor="let categoria of nombreCategorias; let i = index;">
+            <input class="form-check-input" type="checkbox" [value]="categoria.id" id="flexCheckDefault{{i}}" (change)="obtenerProductos()" [(ngModel)]="categoria.seleccionado">
+            <label class="form-check-label" [for]="'flexCheckDefault' + i">{{ obtenerNombreCategoria(categoria.id) }}</label>
+          </div>
+        </div>
+                
+
+
+      </div>
+  
+      <div class="container-general mt-5 col-md-9">
+        <h5 class="text-center fw-bolder mb-4">Productos</h5>
+      <hr>
+      <div class="container" *ngIf="productos.length > 0">
+        <div class="row">
+          <div class="col-lg-4" *ngFor="let producto of productos">
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="imagen">
+                  <img *ngIf="producto.images[0]" [src]="producto.images[0]['image']" class="img-fluid rounded-start" alt="...">
+                  <img *ngIf="!producto.images[0]" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.name}}</h5>
+                    <h6 class="card-text" id="description">{{producto.description}}</h6>
+                    <h5 class="card-text"><small class="text-muted fw-bolder">{{producto.price | currency: 'USD': 'symbol' }}</small></h5>
+                    <h6 *ngIf="obtenerDescuento(producto.id) != 0" class="card-text">Con descuento: <small class="fw-bolder text-danger">{{obtenerDescuento(producto.id) | currency: 'USD': 'symbol' }}</small></h6>
+                    <h5 class="card-category">Category:{{ obtenerNombreCategoria(producto.category[0]) }}</h5>
+                    <div id="contenedor-precios">
+                      <h5 class="btn btn-success  me-3" (click)="adicionarCarrito(producto.id)"><small class="text-light fw-bolder">Adicionar</small><span class="material-symbols-outlined ms-2">local_shipping</span></h5>
+                      <h5 data-bs-toggle="modal" data-bs-target="#informacionModal" class="btn btn-info" (click)="obtenerProductoElegido(producto.id)"><small class="text-muted fw-bolder"><span class="material-symbols-outlined" >info</span></small></h5>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="pagination-principal me-3">
+            <ul class="pagination">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" href="#" (click)="changePage($event, currentPage - 1)">Anterior</a>
+              </li>
+              <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="currentPage === page">
+                <a class="page-link" href="#" (click)="changePage($event, page)">{{ page }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" href="#" (click)="changePage($event, currentPage + 1)">Siguiente</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="container" *ngIf="productos.length <= 0">
+        <img id="img-no" src="https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-robot-confused-or-mistaking-png-image_8413833.png" class="img-fluid rounded-start" alt="...">
+        <h4 id="texto-no">No hay productos en la busqueda seleccionada</h4>
+      </div>
+    </div>
+    </div>
+  </div>
+    
+  
+  
+  
+  
+      <!-- Modal -->
+      <div class="modal fade" id="informacionModal" tabindex="-1" aria-labelledby="informacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="informacionModalLabel">Detalle Producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row g-0" *ngIf="productoElegido">
+                <div id="container-imagenes">
+                  <img *ngIf="productoElegido.images.length > 0" [src]="productoElegido.images[indiceImagen]['image']" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="container-button">
+                  <button *ngIf="productoElegido.images.length >1" class="btn" (click)="cambiarImagen(-1)" [disabled]="indiceImagen === 0"> < </button>
+                  <button *ngIf="productoElegido.images.length >1" class="btn" (click)="cambiarImagen(1)" [disabled]="indiceImagen === productoElegido.images.length - 1"> > </button>
+                  <img *ngIf="!productoElegido.images[0]" src="https://filestore.community.support.microsoft.com/api/images/ext?url=https%3A%2F%2Fanswerscdn.microsoft.com%2Fstatic%2Fimages%2Fimage-not-found.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="card-body">
+                    <h3 id="text-imagenes">Imagenes: {{productoElegido.images.length}}</h3>
+                    <h5 class="card-title-modal mt-2">{{ productoElegido.name}}</h5>
+                    <h6 class="card-text">Descripcion : <small>{{ productoElegido.description}}</small></h6>
+                    <h5 class="card-category">Categoria : {{ obtenerNombreCategoria(productoElegido.category[0])}}</h5>
+                    <h6 class="card-text">Precio :<small :small class="text-muted fw-bolder">{{productoElegido.price | currency: 'USD': 'symbol' }}</small></h6>
+                    <h6 *ngIf="obtenerDescuento(productoElegido.id) != 0" class="card-text">Con descuento: <small class="fw-bolder text-danger">{{obtenerDescuento(productoElegido.id) | currency: 'USD': 'symbol' }}</small></h6>
+
+                    <div id="contenedor-precios">
+                      <h5 class="btn btn-success  me-3" (click)="adicionarCarrito(productoElegido.id)"><small class="text-light fw-bolder">Adicionar</small><span class="material-symbols-outlined ms-2">local_shipping</span></h5>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+             </div>
+          </div>
+        </div>
+      </div>
+</div>  

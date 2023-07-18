@@ -1,0 +1,81 @@
+table thead tr th{
+    background-color: #102931;
+    text-align: center;
+    font-size: 13px;
+    color: white;
+}
+
+table tbody tr td{
+    text-align: center;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+table tbody tr th{
+    text-align: center;
+    font-size: 12px;
+    background-color: #eaf3f7;
+    width: 40px;
+    vertical-align: middle;
+}
+
+#delete-img{
+    vertical-align: middle;
+}
+
+#deleteDiscont{
+    font-size: 20px;
+    vertical-align: middle;
+}
+.elementos{
+    min-width: 150px;
+}
+.elementos span{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.pagination-principal{
+    display: grid;
+    place-content: end;
+}
+
+.pagination-principal ul li a{
+    font-size: 12px;
+}
+.modal-title{
+    font-size: 13px;
+}
+#textoInicial{
+    font-size: 12px;
+}
+.modal-header{
+    background-color: #eeeeff73;
+}
+.modal-body input, .modal-body textarea{
+    font-size: 12px;
+}
+.modal-footer button{
+    font-size: 12px;
+}
+.titulo span{
+    vertical-align: middle;
+}
+#container-btn-adicionar h6{
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+table li{
+    list-style: none;
+}
+#link-image{
+    cursor: pointer;
+    min-width: 150px;
+}
+#texto-boton{
+    font-size: 12px;
+}
+#texto-boton span{
+    vertical-align: middle;
+}

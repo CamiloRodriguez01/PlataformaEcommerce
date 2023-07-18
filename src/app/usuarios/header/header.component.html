@@ -1,0 +1,28 @@
+<div class="navBar">
+  <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+          <div id="contenerBrand" >
+              <img routerLink="/usuarios" id="logoEmpresa" class="me-1" src="./assets/logo.png">
+              <a routerLink="/usuarios" class="navbar-brand" id="empresa"> Eccomerce</a>
+              <div routerLink="productos" class="elementNav" id="productos">
+                  <span class="material-symbols-outlined" id="itemNavbar" >store</span>
+                  <label>Productos</label>
+              </div>
+              <div routerLink="compras" class="elementNav ms-1" id="mis-compras">
+                  <span class="material-symbols-outlined" id="itemNavbar" >wallet</span>
+                  <label>Mis compras</label>
+              </div>
+          </div>
+          <div id="opciones">
+              <ul class="nav justify-content-end">
+                  <div class="items">
+                      <span *ngIf="permiso" routerLink="cargue" class="material-symbols-outlined ms-2" id="itemNavbar" >publish</span>
+                      <span routerLink="perfil" class="material-symbols-outlined ms-2" id="itemNavbar" >account_circle</span>
+                      <span routerLink="carro" class="material-symbols-outlined ms-2" id="itemNavbar" >shopping_cart</span>
+                      <span (click)="cerrarSesion()" class="material-symbols-outlined ms-2" id="itemNavbar" >logout</span>
+                  </div>
+              </ul>
+         </div>
+      </div>
+  </nav>
+</div>
