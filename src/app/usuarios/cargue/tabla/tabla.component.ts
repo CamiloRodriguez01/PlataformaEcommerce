@@ -6,6 +6,8 @@ import { ViewChild, ElementRef } from '@angular/core';
 import { Toast , ToastConfirmacion , ToastAutentication} from 'src/app/helpers/useAlerts';
 import { Descuento } from '../../inicio/DescuentoI';
 import { Category } from '../../productos/Category';
+import { Camera, CameraResultType } from '@capacitor/camera';
+
 
 @Component({
   selector: 'app-tabla',
@@ -26,10 +28,13 @@ export class TablaComponent {
   fileToUpload: File[] = [];
   descuento:Descuento[] = [];
   categoria:Category[] = [];
+  imageUrl:any;
+  imageView:any;
 
   @ViewChild('cerrarModalButton') cerrarModalButton!: ElementRef;
   @ViewChild('cerrarModalButtonAd') cerrarModalButtonAd!: ElementRef;
   @ViewChild('cerrarModalButtonImg') cerrarModalButtonImg!: ElementRef;
+  @ViewChild('cerrarModalButtonImgPhoto') cerrarModalButtonImgPhoto!: ElementRef;
   @ViewChild('cerrarModalButtonDis') cerrarModalButtonDis!: ElementRef;
 
   constructor(private apiService: ApiService , private formBuilder: FormBuilder) {
@@ -181,6 +186,11 @@ export class TablaComponent {
     this.idImagen = id;
   }
 
+  guardarIdPhoto(id:number):void{
+    this.idImagen = id;
+    this.takePicture();
+  }
+
   borrarInformacion(id: number): void {
 
     ToastConfirmacion.fire({
@@ -287,4 +297,53 @@ export class TablaComponent {
     return variable;
 
   }
+
+  takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 80,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+    });
+
+    const mimeType = "image/jpeg";
+    const base64Data = image.base64String;
+    const fileName = "captured_image.jpg";
+    const blob = this.base64ToBlob(base64Data, mimeType);
+    const file = new File([blob], fileName, { type: mimeType });
+    this.imageUrl = file;
+    this.imageView = "data:image/jpeg;base64, "+base64Data;
+
+
+  };
+
+  base64ToBlob = (base64:any, mimeType:any) => {
+    const byteCharacters = atob(base64);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, { type: mimeType });
+  };
+
+
+
+  uploadFilePhoto() {
+    const formData = new FormData();
+    formData.append('image', this.imageUrl);
+    formData.append('product', this.idImagen.toString());
+    this.apiService.adicionarImagen('/product/images/', formData).subscribe({
+      next: (datos: any) => {
+        this.obtenerProductos();
+      },
+    });
+    this.cerrarModalButtonImgPhoto.nativeElement.click();
+    Toast.fire({icon: 'success',title: 'Imagen cargada correctamente'})
+  }
+
 }
