@@ -1,8 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../../api-service/api.service';
 import { Usuario } from '../UsuarioI';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Toast } from 'src/app/helpers/useAlerts';
+import { Toast,ToastConfirmacion } from 'src/app/helpers/useAlerts';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 
 @Component({
@@ -10,12 +11,13 @@ import { Toast } from 'src/app/helpers/useAlerts';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
 
   usuario: Usuario[] = [];
   form! : FormGroup;
   passwordForm! : FormGroup;
   stateEdit:boolean = false;
+  isEnableBiometryAuth:Boolean = false;
 
   @ViewChild('closePasswordModal') closePasswordModal!: ElementRef;
 
@@ -61,6 +63,9 @@ export class MainComponent {
     this.obtenerUsuario();
     this.buildForm();
   }
+  ngOnInit(): void {
+    this.checkBiometryAuth();
+  }
 
   private buildForm(){
     const textRgx = /^(([a-zA-ZÀ-ÖØ-öø-ÿ]{3,60})([\s]?)([a-zA-ZÀ-ÖØ-öø-ÿ]*))$/;
@@ -93,6 +98,28 @@ export class MainComponent {
         validators: this.ConfirmPassowrdValidator.bind(this),
       }
     );
+
+  }
+
+  private checkBiometryAuth():void{
+    SecureStoragePlugin.get({key:'user'}).then(value => {
+      this.isEnableBiometryAuth = true
+    }).catch(() => {
+      this.isEnableBiometryAuth = false
+    })
+  }
+
+  disabledBiometryAuth():void{
+    ToastConfirmacion.fire({
+      text: "¿Estás seguro de que deseas deshabilitar la autenticación por huella?"
+    }).then((result) => {
+      if(result.isConfirmed){
+        SecureStoragePlugin.remove({key:'user'})
+        SecureStoragePlugin.remove({key:'password'})
+        this.checkBiometryAuth();
+        Toast.fire({icon: 'success',title: 'Se ha deshabilitado la autenticación por huella'})
+      }
+    })
 
   }
 

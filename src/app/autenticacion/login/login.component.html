@@ -50,6 +50,9 @@
                 </div>
                 <div id="container-button">
                   <button type="button" class="btn btn-primary btn-block mb-2" (click)="verificarUsuario()" [disabled]="form.invalid">Ingresar</button>
+                  <button *ngIf="isEnableBiometryAuth" type="button" class="btn btn-primary btn-block mb-2" (click)="biometryAuthProcess()"><span class="material-symbols-outlined">
+                    fingerprint
+                    </span></button>
                 </div>
                 <div id="container-reg">
                   <h6 class="me-1">¿No tienes cuenta?</h6>
