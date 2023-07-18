@@ -300,8 +300,8 @@ export class TablaComponent {
 
   takePicture = async () => {
     const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
+      quality: 80,
+      allowEditing: false,
       resultType: CameraResultType.Base64,
     });
 
@@ -311,7 +311,7 @@ export class TablaComponent {
     const blob = this.base64ToBlob(base64Data, mimeType);
     const file = new File([blob], fileName, { type: mimeType });
     this.imageUrl = file;
-    this.imageView = file;
+    this.imageView = "data:image/jpeg;base64, "+base64Data;
 
 
   };
