@@ -55,6 +55,7 @@
       </div>
     </div>
     <div class="col-12 d-flex justify-content-end my-2 ">
+      <button *ngIf="isEnableBiometryAuth" type="button" class="btn btn-danger" (click)="disabledBiometryAuth()">Deshabilitar Huella</button>
       <button type="button" class="btn btn-secondary" data-bs-toggle="modal"  data-bs-target="#passwordModal" >Cambiar Contraseña</button>
       <button *ngIf="!stateEdit" type="button" class="btn btn-warning" (click)="enableEdit()" >Editar</button>
       <button *ngIf="stateEdit" type="button" class="btn btn-warning" (click)="updateProfile()" [disabled]="form.invalid" >Actualizar</button>

@@ -15,14 +15,14 @@ export const Toast = Swal.mixin({
 
 export const ToastConfirmacion= Swal.mixin({
     toast: true,
-    title: '¿Estas segúro?',
+    title: '¿Estas seguro?',
     icon: 'warning',
     position: 'top-end',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#303840',
-    confirmButtonText: 'Confirmar!'            
-})  
+    confirmButtonText: 'Confirmar!'
+})
 
 export const ToastAutentication = Swal.mixin({
     toast: true,
@@ -32,6 +32,18 @@ export const ToastAutentication = Swal.mixin({
     didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
-        Swal.showLoading()            
+        Swal.showLoading()
     }
+})
+
+export const ToastFingerPrint = Swal.mixin({
+  position: 'center',
+  title: 'Autenticación biométrica',
+  text: "¿Te gustaria habilitar la autenticación biométrica?",
+  icon: 'info',
+  showCancelButton: true,
+  confirmButtonColor: '#d33',
+  cancelButtonColor: '#303840',
+  confirmButtonText: 'Si',
+  cancelButtonText: 'No'
 })
